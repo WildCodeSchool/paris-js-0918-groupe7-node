@@ -9,14 +9,24 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true
       },
-      name: { type: DataTypes.STRING, allowNull: false },
-      is_active: { type: DataTypes.BOOLEAN, allowNull: false }
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      is_active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+      }
     },
     {}
   );
   companies.associate = function(models) {
     // associations can be defined here
-    companies.hasMany(models.users, { foreignKey: { allowNull: false } });
+    companies.hasMany(models.users, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
   };
   return companies;
 };

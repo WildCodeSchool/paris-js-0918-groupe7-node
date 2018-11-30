@@ -36,7 +36,28 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   users.associate = function(models) {
-    // associations can be defined here
+    users.belongsTo(models.agencies, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+    users.belongsTo(models.companies, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+    users.belongsTo(models.poles, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+
+    users.belongsToMany(models.answers_possibilities, {
+      through: "users_answers_possibilities_questions"
+    });
+    users.belongsToMany(models.questions, {
+      through: "users_answers_possibilities_questions"
+    });
   };
   return users;
 };

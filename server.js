@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const models = require("./models");
 
-console.log(process.env);
 models.sequelize.sync().then(() => {
   app.listen(3002);
 });
