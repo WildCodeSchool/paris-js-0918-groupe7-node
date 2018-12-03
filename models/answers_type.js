@@ -1,18 +1,15 @@
-"use strict";
+'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const answers_type = sequelize.define(
-    "answers_type",
-    {
-      type: DataTypes.STRING
-    },
-    {}
-  );
+  const answers_type = sequelize.define('answers_type', {
+    type: {type : DataTypes.STRING, allowNull : false}
+  }, {});
   answers_type.associate = function(models) {
+    // associations can be defined here
     answers_type.hasMany(models.answers_possibilities, {
-      foreignKey: {
-        allowNull: false
+      foreignKey : {
+        allowNull : false,
       }
-    });
+    })
   };
   return answers_type;
 };

@@ -1,21 +1,21 @@
-"use strict";
+'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const agencies = sequelize.define("agencies", {
-    name: {
-      type: DataTypes.STRING
-    },
-
-    is_active: {
-      type: DataTypes.BOOLEAN
-    }
-  });
+  const agencies = sequelize.define('agencies', {
+    name: {type : DataTypes.STRING, allowNull : false},
+    is_active: {type : DataTypes.BOOLEAN, allowNull : false}
+  }, {});
   agencies.associate = function(models) {
+    // associations can be defined here
     agencies.hasMany(models.users, {
-      foreignKey: { allowNull: false }
-    });
+      foreignKey: {
+        allowNull : false
+      }
+    })
     agencies.belongsTo(models.companies, {
-      foreignKey: { allowNull: false }
-    });
+      foreignKey: {
+        allowNull : false
+      }
+    })
   };
   return agencies;
 };

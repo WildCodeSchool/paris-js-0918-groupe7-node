@@ -1,16 +1,18 @@
-"use strict";
+'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("email_extensions", {
+    return queryInterface.createTable('companies', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      email_extension: {
-        allowNull: false,
+      name: {
         type: Sequelize.STRING
+      },
+      is_active: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -23,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("email_extensions");
+    return queryInterface.dropTable('companies');
   }
 };
