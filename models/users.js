@@ -1,59 +1,37 @@
-"use strict";
+'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const users = sequelize.define(
-    "users",
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-
-        autoIncrement: true
-      },
-      email: { type: DataTypes.STRING },
-      password: { type: DataTypes.STRING },
-      gender: {
-        type: DataTypes.ENUM,
-        values: ["male", "female"]
-      },
-      age_range: {
-        type: DataTypes.ENUM,
-        values: ["-30", "30-39", "40-49", "50-59", "60+"]
-      },
-      role: {
-        type: DataTypes.ENUM,
-        values: ["client", "admin", "super_admin"]
-      },
-      seniority: {
-        type: DataTypes.ENUM,
-        values: ["-5", "5-9", "10-14", "15-19", "20+"]
-      },
-      is_active: { type: DataTypes.BOOLEAN }
-    },
-    {}
-  );
+  const users = sequelize.define('users', {
+    email: {type : DataTypes.STRING, allowNull : false},
+    password: {type : DataTypes.STRING, allowNull : false},
+    gender: {type : DataTypes.ENUM('male', 'female'), allowNull : false},
+    age_range: {type : DataTypes.ENUM('-30','30-39','40-49', '50-59', '60+'), allowNull : false},
+    seniority: {type : DataTypes.ENUM('-5','5-9','10-14','15-19', '20+'), allowNull : false},
+    role: {type : DataTypes.ENUM('client','admin','super_admin'), allowNull : false},
+    is_active: {type : DataTypes.BOOLEAN , allowNull : false},
+  }, {});
   users.associate = function(models) {
-    users.belongsTo(models.agencies, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
+    // associations can be defined here
     users.belongsTo(models.companies, {
-      foreignKey: {
-        allowNull: false
+      foreignKey : {
+        allowNull : false,
       }
-    });
+    })
+    users.belongsTo(models.agencies, {
+      foreignKey : {
+        allowNull : false,
+      }
+    })
     users.belongsTo(models.poles, {
-      foreignKey: {
-        allowNull: false
+      foreignKey : {
+        allowNull : false,
       }
-    });
-
-    users.belongsToMany(models.answers_possibilities, {
-      through: "users_answers_possibilities_questions"
-    });
-    users.belongsToMany(models.questions, {
-      through: "users_answers_possibilities_questions"
-    });
+    })
+    users.hasMany(models.users_answers_possibilities_questions, {
+      foreignKey : {
+        primaryKey : true,
+        allowNull : false,
+      }
+    })
   };
   return users;
 };
