@@ -3,8 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const answers_type = sequelize.define(
     "answers_type",
     {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
     {}
   );
