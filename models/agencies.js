@@ -2,13 +2,11 @@
 module.exports = (sequelize, DataTypes) => {
   const agencies = sequelize.define("agencies", {
     name: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
 
     is_active: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
+      type: DataTypes.BOOLEAN
     }
   });
   agencies.associate = function(models) {

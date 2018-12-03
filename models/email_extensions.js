@@ -3,8 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const email_extensions = sequelize.define(
     "email_extensions",
     {
-      email_extension: DataTypes.STRING,
-      allowNull: false
+      email_extension: DataTypes.STRING
     },
     {}
   );

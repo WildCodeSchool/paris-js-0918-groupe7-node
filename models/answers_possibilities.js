@@ -3,9 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   const answers_possibilities = sequelize.define(
     "answers_possibilities",
     {
-      answer: { type: DataTypes.STRING, allowNull: false },
-      weight: { type: DataTypes.INTEGER, allowNull: false },
-      order: { type: DataTypes.STRING, allowNull: false }
+      answer: { type: DataTypes.STRING },
+      weight: { type: DataTypes.INTEGER },
+      order: { type: DataTypes.STRING }
     },
     {}
   );

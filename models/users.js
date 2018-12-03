@@ -6,32 +6,28 @@ module.exports = (sequelize, DataTypes) => {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
+
         autoIncrement: true
       },
-      email: { type: DataTypes.STRING, allowNull: false },
-      password: { type: DataTypes.STRING, allowNull: false },
+      email: { type: DataTypes.STRING },
+      password: { type: DataTypes.STRING },
       gender: {
         type: DataTypes.ENUM,
-        values: ["male", "female"],
-        allowNull: false
+        values: ["male", "female"]
       },
       age_range: {
         type: DataTypes.ENUM,
-        values: ["-30", "30-39", "40-49", "50-59", "60+"],
-        allowNull: false
+        values: ["-30", "30-39", "40-49", "50-59", "60+"]
       },
       role: {
         type: DataTypes.ENUM,
-        values: ["client", "admin", "super_admin"],
-        allowNull: false
+        values: ["client", "admin", "super_admin"]
       },
       seniority: {
         type: DataTypes.ENUM,
-        values: ["-5", "5-9", "10-14", "15-19", "20+"],
-        allowNull: false
+        values: ["-5", "5-9", "10-14", "15-19", "20+"]
       },
-      is_active: { type: DataTypes.BOOLEAN, allowNull: false }
+      is_active: { type: DataTypes.BOOLEAN }
     },
     {}
   );
