@@ -1,7 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const questions = sequelize.define('questions', {
-    question: {type : DataTypes.STRING, allowNull : false}
+    question: {type : DataTypes.STRING, allowNull : false},
+    agile_orientation: {type : DataTypes.ENUM('Agile Adoption', 'Agile Capabilities'), allowNull : false}
   }, {});
   questions.associate = function(models) {
     // associations can be defined here
