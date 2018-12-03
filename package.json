@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/WildCodeSchool/paris-js-0918-groupe7-node#readme",
   "dependencies": {
-    "mysql": "^2.16.0"
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "mysql2": "^1.6.4",
+    "sequelize": "^4.41.2"
   }
 }

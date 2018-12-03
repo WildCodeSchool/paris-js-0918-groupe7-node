@@ -21,7 +21,6 @@ module.exports = {
         type: Sequelize.ENUM,
         values: ["male", "female"]
       },
-
       age_range: {
         allowNull: false,
         type: Sequelize.ENUM,
@@ -46,7 +45,6 @@ module.exports = {
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
         allowNull: false,
         type: Sequelize.DATE
       }
