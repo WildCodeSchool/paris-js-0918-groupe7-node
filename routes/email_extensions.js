@@ -15,15 +15,6 @@ router.get('/:id(\\d+)', (req, res) => {
 	.then(data => res.json(data));
 })
 
-router.get('/:name', (req, res) => {
-	models.email_extensions.findAll({
-		where: {
-			name : req.params.name
-		}
-	})
-	.then(data => res.json(data));
-})
-
 router.post('/', (req, res) => {
 	const data = req.body;
 	const newEmail_extension = new models.email_extensions(data);
