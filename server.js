@@ -8,6 +8,8 @@ const routerIndex = require("./routes/index");
 const routerCompanies = require("./routes/companies");
 const routerEmailExtensions = require("./routes/email_extensions");
 const routerAgencies = require("./routes/agencies");
+const routerPillars = require("./routes/pillars");
+const routerPoles = require("./routes/poles");
 
 const app = express();
 
@@ -22,6 +24,8 @@ app.use('/', routerIndex);
 app.use('/companies', routerCompanies);
 app.use('/email_extensions', routerEmailExtensions);
 app.use('/agencies', routerAgencies);
+app.use('/pillars', routerPillars);
+app.use('/poles', routerPoles);
 
 models.sequelize.sync().then(() => {
   app.listen(3002);
