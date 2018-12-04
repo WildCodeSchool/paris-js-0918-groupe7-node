@@ -26,8 +26,9 @@ router.get('/:name', (req, res) => {
 
 router.post('/', (req, res) => {
 	const data = req.body;
-	const newCompanie = new models.companies(data);
-	newCompanie.save();
+	console.log(data);
+	const newCompany = new models.companies(data);
+	newCompany.save();
 
 	res.sendStatus(200);
 })
