@@ -8,6 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     pillars.belongsToMany(models.poles, {
       through : "pillars_poles",
     })
+
+    pillars.hasMany(models.sub_pillars, {
+      foreignKey : {
+        allowNull : false
+      }
+    })
   };
   return pillars;
 };
