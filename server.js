@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
 const models = require("./models");
+
 const routerIndex = require("./routes/index");
 const routerCompanies = require("./routes/companies");
 const routerEmailExtensions = require("./routes/email_extensions");
@@ -19,10 +20,12 @@ const routerQuestions = require("./routes/questions");
 const app = express();
 
 app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended : true
-}))
+}));
+
 app.use(morgan("dev"));
 
 app.use('/', routerIndex);

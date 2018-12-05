@@ -16,23 +16,23 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey : {
         allowNull : false,
       }
-    })
+    });
     users.belongsTo(models.agencies, {
       foreignKey : {
         allowNull : false,
       }
-    })
+    });
     users.belongsTo(models.poles, {
       foreignKey : {
         allowNull : false,
       }
-    })
+    });
     users.hasMany(models.users_answers_possibilities_questions, {
       foreignKey : {
         primaryKey : true,
         allowNull : false,
       }
-    })
+    });
   };
   return users;
 };
