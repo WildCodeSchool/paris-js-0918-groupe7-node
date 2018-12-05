@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       }
     })
 
+    questions.belongsTo(models.sub_pillars, {
+      foreignKey : {
+        allowNull : false,
+      }
+    })
+
     questions.belongsToMany(models.answers_possibilities, {
       through : "questions_answers_possibilities",
     })
