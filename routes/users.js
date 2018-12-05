@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const models = require("../models");
+const models = require('../models');
+const userCtrl = require('./log');
 
 router.get('/', (req, res) => {
 	models.users.findAll().then(data => res.json(data));
@@ -23,6 +24,10 @@ router.post('/', (req, res) => {
 
 	res.sendStatus(200);
 })
+
+router.post('/register/', userCtrl.register);
+
+router.post('/login/', userCtrl.login);
 
 router.put('/:id(\\d+)', (req, res) => {
 	const data = req.body;
