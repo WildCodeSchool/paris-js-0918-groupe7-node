@@ -14,9 +14,10 @@ module.exports = {
     const age_range = req.body.age_range;
     const seniority = req.body.seniority;
     const role      = req.body.role;
-    const agency    = req.body.agency;
-    const company   = req.body.company;
-    const pole      = req.body.pole;
+    const is_active = req.body.is_active;
+    const agencyId  = req.body.agencyId;
+    const companyId = req.body.companyId;
+    const poleId    = req.body.poleId;
     
 
     if(email == null || password == null) {
@@ -33,16 +34,17 @@ module.exports = {
       if(!userFound) {
         console.log("user don't exist, ok to create")
         bcrypt.hash(password, 5, (err, bcryptedPassword) => {
-          const newUser = models.users.create({
+          models.users.create({
             email:     email,
             password:  bcryptedPassword,
             gender:    gender,
             age_range: age_range,
             seniority: seniority,
             role:      role,
-            agencyId:  agency,
-            companyId: company,
-            poleId:    pole,
+            is_active: is_active,
+            agencyId:  agencyId,
+            companyId: companyId,
+            poleId:    poleId,
           })
           .then(newUser => {
             return res.status(201).json({'userId': newUser.id})

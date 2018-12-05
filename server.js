@@ -12,7 +12,6 @@ const routerPillars = require("./routes/pillars");
 const routerPoles = require("./routes/poles");
 const routerUsers = require("./routes/users");
 
-
 const app = express();
 
 app.use(cors());
