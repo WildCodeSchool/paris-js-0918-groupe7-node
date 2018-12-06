@@ -3,7 +3,10 @@ const router = express.Router();
 const models = require("../models");
 
 router.get('/', (req, res) => {
-	models.answers_possibilities.findAll().then(data => res.json(data));
+	models.answers_possibilities.findAll()
+	.then(data => {
+		res.status(200).json(data)
+	});
 })
 
 router.get('/:id(\\d+)', (req, res) => {
@@ -12,8 +15,10 @@ router.get('/:id(\\d+)', (req, res) => {
 			id : req.params.id
 		}
 	})
-	.then(data => res.json(data));
-})
+	.then(data => {
+		res.status(200).json(data)
+	});
+});
 
 router.post('/', (req, res) => {
 	const data = req.body;
@@ -26,27 +31,45 @@ router.post('/', (req, res) => {
 		.catch(err => {
 			res.status(500).send('Cannot add AnswerPossibillity')
 		});
-})
+});
 
 router.put('/:id(\\d+)', (req, res) => {
-	const data = req.body;
-	console.log(data);
-	models.answers_possibilities.update(
-		data,
-		{ where : { id : req.params.id } }
-	);
-
-	res.sendStatus(200);
-})
-
-router.delete('/:id(\\d+)', (req, res) => {
-	models.answers_possibilities.destroy({
-		where : {
-			id : req.params.id
+	models.answers_possibilities.findById(req.params.id)
+	.then(answers_possibilitiesFound => {
+		if(answers_possibilitiesFound){
+			const data = req.body;
+			console.log(data);
+			models.answers_possibilities.update(
+				data,
+				{ where : { id : req.params.id } }
+			)
+			.then(updatedAnswerPossibility => {
+				res.status(200).send(`AnswerPossibility updated at id : ${req.params.id }`);
+			});
+		}
+		else{
+			return res.status(404).send('AnswerPossibility does not exist in DB');
 		}
 	});
+});
 
-	res.sendStatus(200);
-})
+router.delete('/:id(\\d+)', (req, res) => {
+	models.answers_possibilities.findById(req.params.id)
+	.then(answers_possibilitiesFound => {
+		if(answers_possibilitiesFound){
+			models.answers_possibilities.destroy({
+				where : {
+					id : req.params.id
+				}
+			})
+			.then(updatedAnswerPossibility => {
+				res.status(200).send(`AnswerPossibility deleted at id : ${req.params.id }`);
+			})
+		}
+		else{
+			return res.status(404).send('AnswerPossibility does not exist in DB');
+		}
+	});
+});
 
 module.exports = router;
