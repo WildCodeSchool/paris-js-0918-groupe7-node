@@ -3,8 +3,11 @@ const router = express.Router();
 const models = require("../models");
 
 router.get('/', (req, res) => {
-	models.pillars_poles.findAll().then(data => res.json(data));
-})
+	models.pillars_poles.findAll()
+	.then(data => {
+		res.status(200).json(data)
+	});
+});
 
 router.post('/', (req, res) => {
 	const data = req.body;
@@ -17,6 +20,6 @@ router.post('/', (req, res) => {
 		.catch(err => {
 			res.status(500).send('Cannot add PillarsPoles')
 		});
-})
+});
 
 module.exports = router;

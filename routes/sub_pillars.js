@@ -3,7 +3,10 @@ const router = express.Router();
 const models = require("../models");
 
 router.get('/', (req, res) => {
-	models.sub_pillars.findAll().then(data => res.json(data));
+	models.sub_pillars.findAll()
+	.then(data => {
+		res.status(200).json(data)
+	});
 })
 
 router.get('/:id(\\d+)', (req, res) => {
@@ -12,7 +15,9 @@ router.get('/:id(\\d+)', (req, res) => {
 			id : req.params.id
 		}
 	})
-	.then(data => res.json(data));
+	.then(data => {
+		res.status(200).json(data)
+	});
 })
 
 router.post('/', (req, res) => {
@@ -29,24 +34,42 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id(\\d+)', (req, res) => {
-	const data = req.body;
-	console.log(data);
-	models.sub_pillars.update(
-		data,
-		{ where : { id : req.params.id } }
-	);
-
-	res.sendStatus(200);
-})
-
-router.delete('/:id(\\d+)', (req, res) => {
-	models.sub_pillars.destroy({
-		where : {
-			id : req.params.id
+	models.sub_pillars.findById(req.params.id)
+	.then(sub_pillarsFound => {
+		if(sub_pillarsFound){
+			const data = req.body;
+			console.log(data);
+			models.sub_pillars.update(
+				data,
+				{ where : { id : req.params.id } }
+			)
+			.then(updatedSubPillars => {
+				res.status(200).send(`SubPillar updated at id : ${req.params.id }`);
+			});
+		}
+		else{
+			return res.status(404).send(`SubPillar ${req.params.id} does not exist in DB`);
 		}
 	});
+});
 
-	res.sendStatus(200);
-})
+router.delete('/:id(\\d+)', (req, res) => {
+	models.sub_pillars.findById(req.params.id)
+	.then(sub_pillarsFound => {
+		if(sub_pillarsFound){
+			models.sub_pillars.destroy({
+				where : {
+					id : req.params.id
+				}
+			})
+			.then(updatedSubPillars => {
+				res.status(200).send(`SubPillar deleted at id : ${req.params.id }`);
+			})
+		}
+		else{
+			return res.status(404).send(`SubPillar ${req.params.id} does not exist in DB`);
+		}
+	});
+});
 
 module.exports = router;

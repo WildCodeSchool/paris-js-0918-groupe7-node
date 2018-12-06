@@ -3,8 +3,10 @@ const router = express.Router();
 const models = require("../models");
 
 router.get('/', (req, res) => {
-	models.pillars.findAll().then(data => res.json(data));
-})
+	models.pillars.findAll().then(data => {
+		res.status(200).json(data)
+	});
+});
 
 router.get('/:id(\\d+)', (req, res) => {
 	models.pillars.findAll({
@@ -12,8 +14,10 @@ router.get('/:id(\\d+)', (req, res) => {
 			id : req.params.id
 		}
 	})
-	.then(data => res.json(data));
-})
+	.then(data => {
+		res.status(200).json(data)
+	});
+});
 
 router.post('/', (req, res) => {
 	const data = req.body;
@@ -26,27 +30,45 @@ router.post('/', (req, res) => {
 		.catch(err => {
 			res.status(500).send('Cannot add Pillar')
 		});
-})
+});
 
 router.put('/:id(\\d+)', (req, res) => {
-	const data = req.body;
-	console.log(data);
-	models.pillars.update(
-		data,
-		{ where : { id : req.params.id } }
-	);
-
-	res.sendStatus(200);
-})
-
-router.delete('/:id(\\d+)', (req, res) => {
-	models.pillars.destroy({
-		where : {
-			id : req.params.id
+	models.pillars.findById(req.params.id)
+	.then(pillarsFound => {
+		if(pillarsFound){
+			const data = req.body;
+			console.log(data);
+			models.pillars.update(
+				data,
+				{ where : { id : req.params.id } }
+			)
+			.then(updatedPillars => {
+				res.status(200).send(`Pillar updated at id : ${req.params.id }`);
+			});
+		}
+		else{
+			return res.status(404).send(`Pillar ${req.params.id} does not exist in DB`);
 		}
 	});
+});
 
-	res.sendStatus(200);
-})
+router.delete('/:id(\\d+)', (req, res) => {
+	models.pillars.findById(req.params.id)
+	.then(pillarsFound => {
+		if(pillarsFound){
+			models.pillars.destroy({
+				where : {
+					id : req.params.id
+				}
+			})
+			.then(updatedPillars => {
+				res.status(200).send(`Pillar deleted at id : ${req.params.id }`);
+			})
+		}
+		else{
+			return res.status(404).send(`Pillar ${req.params.id} does not exist in DB`);
+		}
+	});
+});
 
 module.exports = router;

@@ -3,8 +3,10 @@ const router = express.Router();
 const models = require("../models");
 
 router.get('/', (req, res) => {
-	models.poles.findAll().then(data => res.json(data));
-})
+	models.poles.findAll().then(data => {
+		res.status(200).json(data)
+	});
+});
 
 router.get('/:id(\\d+)', (req, res) => {
 	models.poles.findAll({
@@ -12,7 +14,9 @@ router.get('/:id(\\d+)', (req, res) => {
 			id : req.params.id
 		}
 	})
-	.then(data => res.json(data));
+	.then(data => {
+		res.status(200).json(data)
+	});
 })
 
 router.post('/', (req, res) => {
@@ -26,27 +30,45 @@ router.post('/', (req, res) => {
 		.catch(err => {
 			res.status(500).send('Cannot add Pole')
 		});
-})
+});
 
 router.put('/:id(\\d+)', (req, res) => {
-	const data = req.body;
-	console.log(data);
-	models.poles.update(
-		data,
-		{ where : { id : req.params.id } }
-	);
-
-	res.sendStatus(200);
-})
-
-router.delete('/:id(\\d+)', (req, res) => {
-	models.poles.destroy({
-		where : {
-			id : req.params.id
+	models.poles.findById(req.params.id)
+	.then(polesFound => {
+		if(polesFound){
+			const data = req.body;
+			console.log(data);
+			models.poles.update(
+				data,
+				{ where : { id : req.params.id } }
+			)
+			.then(updatedPoles => {
+				res.status(200).send(`Pole updated at id : ${req.params.id }`);
+			});
+		}
+		else{
+			return res.status(404).send(`Pole ${req.params.id} does not exist in DB`);
 		}
 	});
+});
 
-	res.sendStatus(200);
-})
+router.delete('/:id(\\d+)', (req, res) => {
+	models.poles.findById(req.params.id)
+	.then(polesFound => {
+		if(polesFound){
+			models.pillars.destroy({
+				where : {
+					id : req.params.id
+				}
+			})
+			.then(updatedPoles => {
+				res.status(200).send(`Pole deleted at id : ${req.params.id }`);
+			})
+		}
+		else{
+			return res.status(404).send(`Pole ${req.params.id} does not exist in DB`);
+		}
+	});
+});
 
 module.exports = router;

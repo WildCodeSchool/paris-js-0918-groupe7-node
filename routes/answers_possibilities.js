@@ -48,7 +48,7 @@ router.put('/:id(\\d+)', (req, res) => {
 			});
 		}
 		else{
-			return res.status(404).send('AnswerPossibility does not exist in DB');
+			return res.status(404).send(`AnswerPossibility ${req.params.id} does not exist in DB`);
 		}
 	});
 });
@@ -67,7 +67,7 @@ router.delete('/:id(\\d+)', (req, res) => {
 			})
 		}
 		else{
-			return res.status(404).send('AnswerPossibility does not exist in DB');
+			return res.status(404).send(`AnswerPossibility ${req.params.id} does not exist in DB`);
 		}
 	});
 });

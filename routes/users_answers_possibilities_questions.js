@@ -3,7 +3,10 @@ const router = express.Router();
 const models = require("../models");
 
 router.get('/', (req, res) => {
-	models.users_answers_possibilities_questions.findAll().then(data => res.json(data));
+	models.users_answers_possibilities_questions.findAll()
+	.then(data => {
+		res.status(200).json(data)
+	});
 })
 
 router.post('/', (req, res) => {

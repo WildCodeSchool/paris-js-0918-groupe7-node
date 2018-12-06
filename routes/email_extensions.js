@@ -3,7 +3,10 @@ const router = express.Router();
 const models = require("../models");
 
 router.get('/', (req, res) => {
-	models.email_extensions.findAll().then(data => res.json(data));
+	models.email_extensions.findAll()
+	.then(data => {
+		res.status(200).json(data)
+	});
 })
 
 router.get('/:id(\\d+)', (req, res) => {
@@ -12,7 +15,9 @@ router.get('/:id(\\d+)', (req, res) => {
 			id : req.params.id
 		}
 	})
-	.then(data => res.json(data));
+	.then(data => {
+		res.status(200).json(data)
+	});
 })
 
 router.post('/', (req, res) => {
@@ -28,24 +33,42 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id(\\d+)', (req, res) => {
-	const data = req.body;
-	console.log(data);
-	models.email_extensions.update(
-		data,
-		{ where : { id : req.params.id } }
-	);
-
-	res.sendStatus(200);
-})
-
-router.delete('/:id(\\d+)', (req, res) => {
-	models.email_extensions.destroy({
-		where : {
-			id : req.params.id
+	models.email_extensions.findById(req.params.id)
+	.then(email_extensionsFound => {
+		if(email_extensionsFound){
+			const data = req.body;
+			console.log(data);
+			models.email_extensions.update(
+				data,
+				{ where : { id : req.params.id } }
+			)
+			.then(updatedEmailExtension => {
+				res.status(200).send(`EmailExtension updated at id : ${req.params.id }`);
+			});
+		}
+		else{
+			return res.status(404).send(`EmailExtension ${req.params.id} does not exist in DB`);
 		}
 	});
+});
 
-	res.sendStatus(200);
-})
+router.delete('/:id(\\d+)', (req, res) => {
+	models.email_extensions.findById(req.params.id)
+	.then(email_extensionsFound => {
+		if(email_extensionsFound){
+			models.email_extensions.destroy({
+				where : {
+					id : req.params.id
+				}
+			})
+			.then(updatedEmailExtension => {
+				res.status(200).send(`EmailExtension deleted at id : ${req.params.id }`);
+			})
+		}
+		else{
+			return res.status(404).send(`EmailExtension ${req.params.id} does not exist in DB`);
+		}
+	});
+});
 
 module.exports = router;

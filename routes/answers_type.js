@@ -67,7 +67,7 @@ router.delete('/:id(\\d+)', (req, res) => {
 			})
 		}
 		else{
-			return res.status(404).send('AnswerType does not exist in DB');
+			return res.status(404).send(`AnswerType ${req.params.id} does not exist in DB`);
 		}
 	});
 });
