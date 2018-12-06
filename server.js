@@ -16,6 +16,9 @@ const routerUsers = require("./routes/users");
 const routerAnswersPossibilities = require("./routes/answers_possibilities");
 const routerAnswersType = require("./routes/answers_type");
 const routerQuestions = require("./routes/questions");
+const routerPillarsPoles = require("./routes/pillars_poles");
+const routerQuestionsAnswersPossibilities = require("./routes/questions_answers_possibilities");
+const routerUsersAnswersPossibilitiesQuestions = require("./routes/users_answers_possibilities_questions");
 
 const app = express();
 
@@ -39,6 +42,9 @@ app.use('/users', routerUsers);
 app.use('/answers_possibilities', routerAnswersPossibilities);
 app.use('/answers_type', routerAnswersType);
 app.use('/questions', routerQuestions);
+app.use('/pillars_poles', routerPillarsPoles);
+app.use('/questions_answers_possibilities', routerQuestionsAnswersPossibilities);
+app.use('/users_answers_possibilities_questions', routerUsersAnswersPossibilitiesQuestions);
 
 models.sequelize.sync().then(() => {
   app.listen(3002);
