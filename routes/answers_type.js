@@ -4,7 +4,7 @@ const models = require("../models");
 
 router.get('/', (req, res) => {
 	models.answers_type.findAll().then(data => res.json(data));
-})
+});
 
 router.get('/:id(\\d+)', (req, res) => {
 	models.answers_type.findAll({
@@ -12,8 +12,10 @@ router.get('/:id(\\d+)', (req, res) => {
 			id : req.params.id
 		}
 	})
-	.then(data => res.json(data));
-})
+	.then(data => {
+		res.status(200).json(data);
+	});
+});
 
 router.post('/', (req, res) => {
 	const data = req.body;
@@ -26,27 +28,45 @@ router.post('/', (req, res) => {
 		.catch(err => {
 			res.status(500).send('Cannot add AnswerType')
 		});
-})
+});
 
 router.put('/:id(\\d+)', (req, res) => {
-	const data = req.body;
-	console.log(data);
-	models.answers_type.update(
-		data,
-		{ where : { id : req.params.id } }
-	);
-
-	res.sendStatus(200);
-})
-
-router.delete('/:id(\\d+)', (req, res) => {
-	models.answers_type.destroy({
-		where : {
-			id : req.params.id
+	models.answers_type.findById(req.params.id)
+	.then(answers_typeFound => {
+		if(answers_typeFound){
+			const data = req.body;
+			console.log(data);
+			models.answers_type.update(
+				data,
+				{ where : { id : req.params.id } }
+			)
+			.then(updatedAnswerType => {
+				res.status(200).send(`AnswerType updated at id : ${req.params.id }`);
+			});
+		}
+		else{
+			return res.status(404).send('AnswerType does not exist in DB');
 		}
 	});
+});
 
-	res.sendStatus(200);
-})
+router.delete('/:id(\\d+)', (req, res) => {
+	models.answers_type.findById(req.params.id)
+	.then(answers_typeFound => {
+		if(answers_typeFound){
+			models.answers_type.destroy({
+				where : {
+					id : req.params.id
+				}
+			})
+			.then(updatedAnswerType => {
+				res.status(200).send(`AnswerType updated at id : ${req.params.id }`);
+			})
+		}
+		else{
+			return res.status(404).send('AnswerType does not exist in DB');
+		}
+	});
+});
 
 module.exports = router;
