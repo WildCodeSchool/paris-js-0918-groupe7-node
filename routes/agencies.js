@@ -3,8 +3,11 @@ const router = express.Router();
 const models = require("../models");
 
 router.get('/', (req, res) => {
-	models.agencies.findAll().then(data => res.json(data));
-})
+	models.agencies.findAll()
+	.then(data => {
+		res.status(200).json(data)
+	});
+});
 
 router.get('/:id(\\d+)', (req, res) => {
 	models.agencies.findAll({
@@ -12,8 +15,10 @@ router.get('/:id(\\d+)', (req, res) => {
 			id : req.params.id
 		}
 	})
-	.then(data => res.json(data));
-})
+	.then(data => {
+		res.status(200).json(data);
+	});
+});
 
 router.post('/', (req, res) => {
 	const data = req.body;
@@ -25,27 +30,45 @@ router.post('/', (req, res) => {
 		.catch(err => {
 			res.status(500).send('Cannot add Agency')
 		});
-})
+});
 
 router.put('/:id(\\d+)', (req, res) => {
-	const data = req.body;
-	console.log(data);
-	models.agencies.update(
-		data,
-		{ where : { id : req.params.id } }
-	);
-
-	res.sendStatus(200);
-})
-
-router.delete('/:id(\\d+)', (req, res) => {
-	models.agencies.destroy({
-		where : {
-			id : req.params.id
+	models.agencies.findById(req.params.id)
+	.then(agenciesFound => {
+		if(agenciesFound){
+			const data = req.body;
+			console.log(data);
+			models.agencies.update(
+				data,
+				{ where : { id : req.params.id } }
+			)
+			.then(updatedAgency => {
+				res.status(200).send(`Agency updated at id : ${req.params.id }`);
+			});
+		}
+		else{
+			return res.status(404).send('Agency does not exist in DB');
 		}
 	});
+});
 
-	res.sendStatus(200);
-})
+router.delete('/:id(\\d+)', (req, res) => {
+	models.agencies.findById(req.params.id)
+	.then(agenciesFound => {
+		if(agenciesFound){
+			models.agencies.destroy({
+				where : {
+					id : req.params.id
+				}
+			})
+			.then(updatedAgency => {
+				res.status(200).send(`Agency deleted at id : ${req.params.id }`);
+			})
+		}
+		else{
+			return res.status(404).send('Agency does not exist in DB');
+		}
+	});
+});
 
 module.exports = router;

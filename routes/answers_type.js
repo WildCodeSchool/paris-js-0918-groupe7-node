@@ -3,7 +3,10 @@ const router = express.Router();
 const models = require("../models");
 
 router.get('/', (req, res) => {
-	models.answers_type.findAll().then(data => res.json(data));
+	models.answers_type.findAll()
+	.then(data => {
+		res.status(200).json(data)
+	});
 });
 
 router.get('/:id(\\d+)', (req, res) => {
@@ -60,7 +63,7 @@ router.delete('/:id(\\d+)', (req, res) => {
 				}
 			})
 			.then(updatedAnswerType => {
-				res.status(200).send(`AnswerType updated at id : ${req.params.id }`);
+				res.status(200).send(`AnswerType deleted at id : ${req.params.id }`);
 			})
 		}
 		else{
