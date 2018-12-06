@@ -12,7 +12,7 @@ module.exports = {
     
     // Params
     const email          = req.body.email;
-    const password       = req.body.password;   
+    const password       = req.body.password;
     const gender         = req.body.gender;
     const age_range      = req.body.age_range;
     const seniority      = req.body.seniority;

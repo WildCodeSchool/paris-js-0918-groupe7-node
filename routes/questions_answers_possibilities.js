@@ -6,41 +6,17 @@ router.get('/', (req, res) => {
 	models.questions_answers_possibilities.findAll().then(data => res.json(data));
 })
 
-router.get('/:id(\\d+)', (req, res) => {
-	models.questions_answers_possibilities.findAll({
-		where: {
-			id : req.params.id
-		}
-	})
-	.then(data => res.json(data));
-})
-
-router.get('/:name', (req, res) => {
-	models.questions_answers_possibilities.findAll({
-		where: {
-			name : req.params.name
-		}
-	})
-	.then(data => res.json(data));
-})
-
 router.post('/', (req, res) => {
 	const data = req.body;
 	console.log(data);
 	const newQuestionAnswerPossibility = new models.questions_answers_possibilities(data);
-	newQuestionAnswerPossibility.save();
-
-	res.sendStatus(200);
-})
-
-router.delete('/:id(\\d+)', (req, res) => {
-	models.questions_answers_possibilities.destroy({
-		where : {
-			id : req.params.id
-		}
-	});
-
-	res.sendStatus(200);
+	newQuestionAnswerPossibility.save()
+		.then(newQuestionAnswerPossibility => {
+			res.status(200).send(`QuestionAnswerPossibility added`);
+		})
+		.catch(err => {
+			res.status(500).send('Cannot add QuestionAnswerPossibility')
+		});
 })
 
 module.exports = router;

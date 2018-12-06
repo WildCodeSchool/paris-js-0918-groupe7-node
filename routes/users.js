@@ -16,15 +16,6 @@ router.get('/:id(\\d+)', (req, res) => {
 	.then(data => res.json(data));
 })
 
-// router.post('/', (req, res) => {
-// 	const data = req.body;
-// 	console.log(data);
-// 	const newUser = new models.users(data);
-// 	newUser.save();
-
-// 	res.sendStatus(200);
-// })
-
 router.post('/register/', userCtrl.register);
 
 router.post('/login/', userCtrl.login);

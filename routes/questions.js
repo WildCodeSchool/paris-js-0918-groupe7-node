@@ -19,9 +19,13 @@ router.post('/', (req, res) => {
 	const data = req.body;
 	console.log(data);
 	const newQuestion = new models.questions(data);
-	newQuestion.save();
-
-	res.sendStatus(200);
+	newQuestion.save()
+		.then(newQuestion => {
+			res.status(200).send(`Question added at id : ${newQuestion.id}`);
+		})
+		.catch(err => {
+			res.status(500).send('Cannot add Question')
+		});
 })
 
 router.put('/:id(\\d+)', (req, res) => {

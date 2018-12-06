@@ -19,9 +19,13 @@ router.post('/', (req, res) => {
 	const data = req.body;
 	console.log(data);
 	const newAnswerType = new models.answers_type(data);
-	newAnswerType.save();
-
-	res.sendStatus(200);
+	newAnswerType.save()
+		.then(newAnswerType => {
+			res.status(200).send(`AnswerType added at id : ${newAnswerType.id}`);
+		})
+		.catch(err => {
+			res.status(500).send('Cannot add AnswerType')
+		});
 })
 
 router.put('/:id(\\d+)', (req, res) => {

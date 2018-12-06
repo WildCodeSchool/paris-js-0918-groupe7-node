@@ -18,9 +18,13 @@ router.get('/:id(\\d+)', (req, res) => {
 router.post('/', (req, res) => {
 	const data = req.body;
 	const newEmail_extension = new models.email_extensions(data);
-	newEmail_extension.save();
-
-	res.sendStatus(200);
+	newEmail_extension.save()
+		.then(newEmail_extension => {
+			res.status(200).send(`Email_extension added at id : ${newEmail_extension.id}`);
+		})
+		.catch(err => {
+			res.status(500).send('Cannot add Email_extension')
+		});
 })
 
 router.put('/:id(\\d+)', (req, res) => {

@@ -19,9 +19,13 @@ router.post('/', (req, res) => {
 	const data = req.body;
 	console.log(data);
 	const newPillar = new models.pillars(data);
-	newPillar.save();
-
-	res.sendStatus(200);
+	newPillar.save()
+		.then(newPillar => {
+			res.status(200).send(`Pillar added at id : ${newPillar.id}`);
+		})
+		.catch(err => {
+			res.status(500).send('Cannot add Pillar')
+		});
 })
 
 router.put('/:id(\\d+)', (req, res) => {

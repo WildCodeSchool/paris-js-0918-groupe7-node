@@ -19,9 +19,13 @@ router.post('/', (req, res) => {
 	const data = req.body;
 	console.log(data);
 	const newAnswerPossibillity = new models.answers_possibilities(data);
-	newAnswerPossibillity.save();
-
-	res.sendStatus(200);
+	newAnswerPossibillity.save()
+		.then(newAnswerPossibillity => {
+			res.status(200).send(`AnswerPossibillity added at id : ${newAnswerPossibillity.id}`);
+		})
+		.catch(err => {
+			res.status(500).send('Cannot add AnswerPossibillity')
+		});
 })
 
 router.put('/:id(\\d+)', (req, res) => {

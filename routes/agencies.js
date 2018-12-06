@@ -18,9 +18,13 @@ router.get('/:id(\\d+)', (req, res) => {
 router.post('/', (req, res) => {
 	const data = req.body;
 	const newAgency = new models.agencies(data);
-	newAgency.save();
-
-	res.sendStatus(200);
+	newAgency.save()
+		.then(newCompany => {
+			res.status(200).send(`Agency added at id : ${newAgency.id}`);
+		})
+		.catch(err => {
+			res.status(500).send('Cannot add Agency')
+		});
 })
 
 router.put('/:id(\\d+)', (req, res) => {

@@ -19,9 +19,13 @@ router.post('/', (req, res) => {
 	const data = req.body;
 	console.log(data);
 	const newSubPillar = new models.sub_pillars(data);
-	newSubPillar.save();
-
-	res.sendStatus(200);
+	newSubPillar.save()
+		.then(newSubPillar => {
+			res.status(200).send(`SubPillar added at id : ${newSubPillar.id}`);
+		})
+		.catch(err => {
+			res.status(500).send('Cannot add SubPillar')
+		});
 })
 
 router.put('/:id(\\d+)', (req, res) => {
