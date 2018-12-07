@@ -2,11 +2,20 @@ const express = require('express');
 const router = express.Router();
 const models = require("../models");
 
+// router.get('/', (req, res) => {
+// 	models.email_extensions.findAll()
+// 	.then(data => {
+// 		res.status(200).json(data)
+// 	});
+// })
+
 router.get('/', (req, res) => {
-	models.email_extensions.findAll()
-	.then(data => {
+	models.email_extensions.findAll({
+		attributes : ['email_extension']
+	  })
+	  .then(data => {
 		res.status(200).json(data)
-	});
+	  })
 })
 
 router.get('/:id(\\d+)', (req, res) => {
