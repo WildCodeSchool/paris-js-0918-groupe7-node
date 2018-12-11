@@ -11,7 +11,7 @@ module.exports = {
   register: (req, res) => {
 
   const newEmail_ext = [];
-  const EMAIL_REGEX = /^@(.*)/;
+  //const EMAIL_REGEX_TEST = /^@(.*)/;
 
   models.email_extensions.findAll({
       attributes : ['email_extension']
@@ -88,6 +88,7 @@ module.exports = {
     // Params
     const email    = req.body.email;
     const password = req.body.password;
+    // const data = req.body;
 
     if(email == null || password == null) {
       return res.status(400).json({'error': 'missing parameters'});
@@ -99,10 +100,14 @@ module.exports = {
     .then((userFound) => {
       if(userFound) {
         bcrypt.compare(password, userFound.password, (errBcrypt, resBcrypt) => {
+          const token = jwtUtils.generateTokenForUser(userFound);
           if(resBcrypt) {
-            return res.status(200).json({
+            return res.status(200)
+            .set("x-access-token", token)
+            .header("Access-Control-Expose-Headers", "x-access-token")
+            .json({
               'userId': userFound.id,
-              'token': jwtUtils.generateTokenForUser(userFound)
+              'token': token
             });
           } else {
             return res.status(403).json({'error': 'invalid password'});
