@@ -25,6 +25,10 @@ router.post('/register/', userCtrl.register);
 
 router.post('/login/', userCtrl.login);
 
+router.post('/forgot/', userCtrl.forgot);
+
+router.put('/reset/:token', userCtrl.reset);
+
 router.put('/:id(\\d+)', (req, res) => {
 	models.users.findById(req.params.id)
 	.then(usersFound => {
