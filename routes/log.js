@@ -18,7 +18,7 @@ module.exports = {
       attributes : ['email_extension']
     }).then(data => {
       data.map(e => newEmail_ext.push(e.dataValues.email_extension));
-      console.log('*',newEmail_ext)
+      //console.log('*',newEmail_ext)
 
       // Params
       const email            = req.body.email;
@@ -53,7 +53,7 @@ module.exports = {
       })
       .then((userFound) => {
         if(!userFound) {
-          console.log("user don't exist, ok to create")
+          //console.log("user don't exist, ok to create")
           bcrypt.hash(password, 5, (err, bcryptedPassword) => {
             models.users.create({
               email:            email,
@@ -140,7 +140,7 @@ module.exports = {
           {where: {email: email}}
         )
         .then(() => {
-          console.log('mumumu', token)
+          //console.log('mumumu', token)
           const smtpTransport = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -163,7 +163,7 @@ module.exports = {
           });
         })
         .then(()=>{
-          console.log('mumumu', userFound.reset_pass_token)
+          //console.log('mumumu', userFound.reset_pass_token)
           return res.status(200).json({'message': 'email send'});
         });
       } else {

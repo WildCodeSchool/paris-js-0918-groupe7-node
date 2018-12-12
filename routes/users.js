@@ -21,6 +21,18 @@ router.get('/:id(\\d+)', (req, res) => {
 	});
 });
 
+router.get('/:email', (req, res) => {
+	models.users.findOne({
+		attridutes: ["role"],
+		where: {
+			email : req.params.email
+		}
+	})
+	.then(data => {
+		res.sattus(200).json(data)
+	});
+});
+
 router.post('/register/', userCtrl.register);
 
 router.post('/login/', userCtrl.login);
