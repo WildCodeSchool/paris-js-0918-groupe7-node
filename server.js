@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const models = require("./models");
 
@@ -31,6 +33,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(morgan("dev"));
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', routerIndex);
 app.use('/companies', routerCompanies);
 app.use('/email_extensions', routerEmailExtensions);
