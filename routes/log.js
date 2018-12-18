@@ -141,7 +141,7 @@ module.exports = {
         )
         .then(() => {
           //console.log('mumumu', token)
-          const smtpTransport = nodemailer.createTransport({
+          const mailTransport = nodemailer.createTransport({
             service: 'gmail',
             auth: {
               user: '',
@@ -157,7 +157,7 @@ module.exports = {
               'http://localhost:3002/users/reset/' + token + '\n\n' +
               'If you did not request this, please ignore this email and your password will remain unchanged.\n'
           };
-          smtpTransport.sendMail(mailOptions, function(err) {
+          mailTransport.sendMail(mailOptions, function(err) {
             req.flash('info', 'An e-mail has been sent to ' + email + ' with further instructions.');
             done(err, 'done');
           });
@@ -182,6 +182,11 @@ module.exports = {
     const reset_token = req.params.token;
     const new_pass    = req.body.new_pass;
     
+    // Wrong password
+    if(!PASSWORD_REGEX.test(password)) { 
+      return res.status(400).json({'error': 'password invalid (must length 4-8 & include 1 number at least)'});
+    }
+
     models.users.findOne({
       where: { reset_pass_token: reset_token }
     })
