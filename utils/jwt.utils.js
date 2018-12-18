@@ -1,7 +1,8 @@
 // Imports
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-const JWT_SIGN_SECRET = '8oi6fne5ong4mqo7ub6iea3igoei4qne2uiq3yvo4emql9mie9bfi6yve2uk5qke4'
+const JWT_SIGN_SECRET = process.env.JWT_SIGN_SECRET
 
 // Exported functions
 module.exports = {
