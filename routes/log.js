@@ -141,11 +141,11 @@ module.exports = {
         )
         .then(() => {
           //console.log('mumumu', token)
-          const mailTransport = nodemailer.createTransport({
+          const smtpTransport = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: '',
-              pass: ''
+              user: 'g.rodrigues.oscar@gmail.com',
+              pass: 'kerberos666'
             }
           });
           const mailOptions = {
@@ -157,7 +157,7 @@ module.exports = {
               'http://localhost:3002/users/reset/' + token + '\n\n' +
               'If you did not request this, please ignore this email and your password will remain unchanged.\n'
           };
-          mailTransport.sendMail(mailOptions, function(err) {
+          smtpTransport.sendMail(mailOptions, function(err) {
             req.flash('info', 'An e-mail has been sent to ' + email + ' with further instructions.');
             done(err, 'done');
           });
@@ -187,6 +187,7 @@ module.exports = {
       return res.status(400).json({'error': 'password invalid (must length 4-8 & include 1 number at least)'});
     }
 
+
     models.users.findOne({
       where: { reset_pass_token: reset_token }
     })
@@ -214,5 +215,16 @@ module.exports = {
     .catch(err => {
       return res.status(500).json({'error': 'unable to verify user'});
     });
-  }
+  },
+  getRole: (req, res) => {
+
+    const headerAuth = req.headers['authorization'];
+    const userRole   = jwtUtils.getUserRole(headerAuth) ;
+
+    if(userRole === null)
+      return res.status(400).json({'error' : 'wrong token'})
+    
+    console.log("role:", userRole)
+    return userRole;
+    }
 }

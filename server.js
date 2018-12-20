@@ -7,6 +7,8 @@ const swaggerDocument = require('./swagger.json');
 
 const models = require("./models");
 
+
+// Import routes
 const routerIndex = require("./routes/index");
 const routerCompanies = require("./routes/companies");
 const routerEmailExtensions = require("./routes/email_extensions");
@@ -33,6 +35,8 @@ app.use(bodyParser.urlencoded({
 
 app.use(morgan("dev"));
 
+
+// Routes
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', routerIndex);
 app.use('/companies', routerCompanies);
