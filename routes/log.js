@@ -224,7 +224,6 @@ module.exports = {
     if(userRole === null)
       return res.status(400).json({'error' : 'wrong token'})
     
-    console.log("role:", userRole)
-    return userRole;
+    return res.status(200).json({"role": userRole});
     }
 }

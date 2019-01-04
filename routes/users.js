@@ -39,7 +39,7 @@ router.post('/login/', userCtrl.login);
 
 router.post('/forgot/', userCtrl.forgot);
 
-router.get('/getrole/', userCtrl.getRole);
+router.post('/getrole/', userCtrl.getRole);
 
 router.put('/reset/:token', userCtrl.reset);
 

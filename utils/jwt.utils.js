@@ -18,23 +18,19 @@ module.exports = {
     },
 
     parseAuthorization: authorization => {
-        return (authorization != null) ? authorization.replace('Bearer', '') : null;
+        return (authorization != null) ? authorization.replace('Bearer ', '') : null;
     },
 
     getUserRole: authorization => {
         let userRole = null;
-        console.log("token received:", authorization)
         let token = module.exports.parseAuthorization(authorization);
-        console.log("token decrypted:", token)
 
         if(token != null) {
-            try {
-                let jwtToken = jwt.verify(token, JWT_SIGN_SECRET);
-
-                if(jwtToken != null)
-                    userRole = jwtToken.role;
-            }
-            catch(err) { }
-        };
+            let jwtToken = jwt.verify(token, JWT_SIGN_SECRET)
+            
+            if(jwtToken != null)
+                userRole = jwtToken.role;
+        }
+        return userRole;
     }
 }
