@@ -23,11 +23,11 @@ router.get('/:id(\\d+)', (req, res) => {
 router.post('/', (req, res) => {
 	const  {questionId, ...data} = req.body;
 	console.log(data);
-	const newAnswerPossibillity = new models.answers_possibilities(data);
-	newAnswerPossibillity.save()
-		.then(newAnswerPossibillity => {
-			models.questions.findById(questionId).then(question => question.addAnswerPossibility(newAnswerPossibillity));
-			res.status(200).send(`AnswerPossibillity added at id : ${newAnswerPossibillity.id}`);
+	const newAnswerPossibility = new models.answers_possibilities(data);
+	newAnswerPossibility.save()
+		.then(newAnswerPossibility => {
+			models.questions.findById(questionId).then(question => question.addAnswers_possibility(newAnswerPossibility));
+			res.status(200).send(`AnswerPossibility added at id : ${newAnswerPossibility.id}`);
 		})
 		.catch(err => {
 			res.status(500).send('Cannot add AnswerPossibillity')
