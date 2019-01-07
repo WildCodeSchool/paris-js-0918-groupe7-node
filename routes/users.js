@@ -17,19 +17,19 @@ router.get('/:id(\\d+)', (req, res) => {
 		}
 	})
 	.then(data => {
-		res.sattus(200).json(data)
+		res.status(200).json(data)
 	});
 });
 
 router.get('/:email', (req, res) => {
 	models.users.findOne({
-		attridutes: ["role"],
+		attributes: ["role"],
 		where: {
 			email : req.params.email
 		}
 	})
 	.then(data => {
-		res.sattus(200).json(data)
+		res.status(200).json(data)
 	});
 });
 
@@ -38,6 +38,8 @@ router.post('/register/', userCtrl.register);
 router.post('/login/', userCtrl.login);
 
 router.post('/forgot/', userCtrl.forgot);
+
+router.post('/getrole/', userCtrl.getRole);
 
 router.put('/reset/:token', userCtrl.reset);
 

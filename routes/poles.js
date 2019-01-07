@@ -20,11 +20,12 @@ router.get('/:id(\\d+)', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-	const data = req.body;
+	const {pillarId, ...data} = req.body;
 	console.log(data);
 	const newPole = new models.poles(data);
 	newPole.save()
 		.then(newPole => {
+			models.pillars.findById(pillarId).then(pillar => pillar.addPole(newPole));
 			res.status(200).send(`Pole added at id : ${newPole.id}`);
 		})
 		.catch(err => {
@@ -56,7 +57,7 @@ router.delete('/:id(\\d+)', (req, res) => {
 	models.poles.findById(req.params.id)
 	.then(polesFound => {
 		if(polesFound){
-			models.pillars.destroy({
+			models.poles.destroy({
 				where : {
 					id : req.params.id
 				}

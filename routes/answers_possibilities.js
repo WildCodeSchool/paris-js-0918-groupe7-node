@@ -21,11 +21,12 @@ router.get('/:id(\\d+)', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	const data = req.body;
+	const  {questionId, ...data} = req.body;
 	console.log(data);
 	const newAnswerPossibillity = new models.answers_possibilities(data);
 	newAnswerPossibillity.save()
 		.then(newAnswerPossibillity => {
+			models.questions.findById(questionId).then(question => question.addAnswerPossibility(newAnswerPossibillity));
 			res.status(200).send(`AnswerPossibillity added at id : ${newAnswerPossibillity.id}`);
 		})
 		.catch(err => {
