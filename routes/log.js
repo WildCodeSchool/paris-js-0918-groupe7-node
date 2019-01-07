@@ -73,6 +73,7 @@ module.exports = {
               return res.status(201).json({'userId': newUser.id})
             })
             .catch(err => {
+              console.error(err)
               return res.status(500).json({'error': 'cannot add user'});
             });
           });
