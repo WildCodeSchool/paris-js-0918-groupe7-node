@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const models = require("../models");
+const userCtrl = require('./log.js');
 
-router.get('/', (req, res) => {
+router.get('/', userCtrl.requireRole("client"), (req, res) => {
 	models.poles.findAll().then(data => {
 		res.status(200).json(data)
 	});

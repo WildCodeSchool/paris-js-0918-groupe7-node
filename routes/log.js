@@ -225,5 +225,18 @@ module.exports = {
       return res.status(400).json({'error' : 'wrong token'})
     
     return res.status(200).json({"role": userRole});
+  },
+  
+  requireRole: role => {
+    return (req, res, next) => {
+      const headerAuth = req.headers['authorization'];
+      const userRole   = jwtUtils.getUserRole(headerAuth) ;
+
+      if(userRole === role) {
+        next();
+      } else {
+        res.send(403);
+      }
     }
+  },
 }
