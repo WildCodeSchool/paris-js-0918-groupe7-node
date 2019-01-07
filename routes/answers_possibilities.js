@@ -21,7 +21,7 @@ router.get('/:id(\\d+)', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	const  {questionId, ...data} = req.body;
+	const {questionId, ...data} = req.body;
 	console.log(data);
 	const newAnswerPossibility = new models.answers_possibilities(data);
 	newAnswerPossibility.save()
