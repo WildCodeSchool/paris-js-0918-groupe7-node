@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const email_extensions = sequelize.define('email_extensions', {
-    email_extention: {type : DataTypes.STRING, allowNull : false}
+    email_extension: {type : DataTypes.STRING, allowNull : false}
   }, {});
   email_extensions.associate = function(models) {
     // associations can be defined here
