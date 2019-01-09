@@ -1,7 +1,7 @@
 'use strict';
+const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
-  const bcrypt = require("bcrypt");
   const users = sequelize.define('users', {
     email: {type : DataTypes.STRING, allowNull : false},
     password: {type : DataTypes.STRING, allowNull : false},
@@ -14,18 +14,21 @@ module.exports = (sequelize, DataTypes) => {
     business_focus: {type : DataTypes.ENUM('Corporate and Investment banking','Fintech and start-up','Insurance','Private Banking','Retail Banking', 'Specialized Financial Services') , allowNull : false},
   }, {
     // hooks: {
-    //   beforeCreate : (user) => {
+    //   beforeBulkCreate : (user) => {
     //     const salt = bcrypt.genSaltSync();
     //     user.password = bcrypt.hashSync(user.password, salt)
     //   }
     // },
     // instanceMethods: {
-    //   validPassword : function(password){
+    //   generateHash : function(password){
+    //     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
+    //   },
+    //   validePassword :function(password){
     //     return bcrypt.compareSync(password, this.password)
     //   }
     // }
   });
-  // users.beforeSave((user, options) => {
+  // users.beforeBulkCreate((user, options) => {
   //   return bcrypt.hashSync(user.password, 10)
   //     .then(bcryptedPassword => {
   //         user.password = bcryptedPassword;

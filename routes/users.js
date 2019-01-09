@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 
 router.get('/surveyById', (req, res) => {
 	const headerAuth = req.headers['authorization'];
-	const userId   = jwtUtils.getUserId(headerAuth) ;
+	const userId = jwtUtils.getUserId(headerAuth) ;
 
 	models.users.findAll({
 		where : {
