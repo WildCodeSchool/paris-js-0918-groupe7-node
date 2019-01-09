@@ -32,6 +32,11 @@ module.exports = {
         createdAt : '2019-01-09 10:00:00',
         updatedAt : '2019-01-09 10:00:00',
         companyId: 1
+      },{
+        email_extension: '@exton.com',
+        createdAt : '2019-01-09 10:00:00',
+        updatedAt : '2019-01-09 10:00:00',
+        companyId: 1
       }], {});
   },
 

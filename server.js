@@ -7,7 +7,6 @@ const swaggerDocument = require('./swagger.json');
 
 const models = require("./models");
 
-
 // Import routes
 const routerIndex = require("./routes/index");
 const routerCompanies = require("./routes/companies");
@@ -52,6 +51,7 @@ app.use('/questions', routerQuestions);
 app.use('/pillars_poles', routerPillarsPoles);
 app.use('/questions_answers_possibilities', routerQuestionsAnswersPossibilities);
 app.use('/users_answers_possibilities_questions', routerUsersAnswersPossibilitiesQuestions);
+
 
 models.sequelize.sync().then(() => {
   app.listen(3002);
