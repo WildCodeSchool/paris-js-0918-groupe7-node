@@ -145,8 +145,8 @@ module.exports = {
           const smtpTransport = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'g.rodrigues.oscar@gmail.com',
-              pass: 'kerberos666'
+              user: '',
+              pass: ''
             }
           });
           const mailOptions = {
