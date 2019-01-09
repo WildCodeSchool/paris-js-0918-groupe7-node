@@ -61,7 +61,7 @@ module.exports = {
           .then(userFound => {
             if (!userFound) {
               //console.log("user don't exist, ok to create")
-              bcrypt.hash(password, 5, (err, bcryptedPassword) => {
+              bcrypt.hash(password, 10, (err, bcryptedPassword) => {
                 models.users
                   .create({
                     email: email,
