@@ -11,121 +11,31 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id(\\d+)', (req, res) => {
-	let resultTable = [];
 	models.users.findAll({
 		where : { 
 			id : req.params.id 
 		}, 
-		include : [ 
-			models.poles,
-			// models.pillars,
-			// models.sub_pillars,
-			// models.questions,
-			// models.answers_possibilities,
-			// models.answers_type
-		]
+		include : [{
+			model : models.poles,
+			include : [{
+				model : models.pillars,
+				include : [{
+					model : models.sub_pillars,
+					include : [{
+						model : models.questions,
+						include : [{
+							model : models.answers_possibilities,
+							include : [{
+								model : models.answers_type
+							}]
+						}]
+					}]
+				}]
+			}]
+		}]
 	})
 	.then(data => {
-		resultTable.push(data);
-		const pole = data[0].pole.id
-		models.poles.findAll({
-			where : { 
-				id : pole
-			}, 
-			include : [ 
-				//models.poles,
-				models.pillars,
-				// models.sub_pillars,
-				// models.questions,
-				// models.answers_possibilities,
-				// models.answers_type
-			]
-		})
-		.then(data => {
-		resultTable.push(data);
-			data[0].pillars.map(data => {
-			const pillar = data.id
-			models.pillars.findAll({
-				where : { 
-					id : pillar
-				}, 
-				include : [ 
-					//models.poles,
-					// models.pillars,
-					 models.sub_pillars,
-					// models.questions,
-					// models.answers_possibilities,
-					// models.answers_type
-				]
-			})
-			.then(data => {
-				resultTable.push(data);
-				//res.status(200).json(data)
-				data[0].sub_pillars.map(data => {
-					const sub_pillars = data.id
-					models.sub_pillars.findAll({
-						where : {
-							id : sub_pillars
-						},
-						include : [ 
-							//models.poles,
-							// models.pillars,
-							// models.sub_pillars,
-							models.questions,
-							// models.answers_possibilities,
-							// models.answers_type
-						]
-					})
-					.then(data => {
-						resultTable.push(data);
-						//res.status(200).json(data)
-						data[0].questions.map(data => {
-							const questions = data.id
-							models.questions.findAll({
-								where : {
-									id : questions
-								},
-								include : [ 
-									//models.poles,
-									// models.pillars,
-									// models.sub_pillars,
-									// models.questions,
-									models.answers_possibilities,
-									// models.answers_type
-								]
-							})
-							.then(data => {
-								resultTable.push(data);
-								// res.status(200).json(data)
-								data[0].answers_possibilities.map(data => {
-									const answers_possibilities = data.id
-									models.answers_possibilities.findAll({
-										where : {
-											id : answers_possibilities
-										},
-										include : [ 
-											//models.poles,
-											// models.pillars,
-											// models.sub_pillars,
-											// models.questions,
-											// models.answers_possibilities,
-											models.answers_type
-										]
-									})
-									.then(data => {
-										resultTable.push(data);
-										})
-										.then(
-											res.status(200).json(resultTable)
-										)
-									})
-								})
-							})
-						})
-					})
-				})
-			})
-		})
+		res.status(200).json(data)
 	})
 })
 
