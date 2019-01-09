@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const models = require("../models");
+const userCtrl = require('./log.js');
 
 router.get('/', (req, res) => {
 	models.poles.findAll().then(data => {
@@ -20,12 +21,13 @@ router.get('/:id(\\d+)', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-	const {pillarId, ...data} = req.body;
+	const {pillarIds, ...data} = req.body;
 	console.log(data);
 	const newPole = new models.poles(data);
 	newPole.save()
 		.then(newPole => {
-			models.pillars.findById(pillarId).then(pillar => pillar.addPole(newPole));
+			pillarIds.map(id =>
+			models.pillars.findById(id).then(pillar => pillar.addPole(newPole)));
 			res.status(200).send(`Pole added at id : ${newPole.id}`);
 		})
 		.catch(err => {

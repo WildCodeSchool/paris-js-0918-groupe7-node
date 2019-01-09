@@ -12,14 +12,32 @@ router.get('/', (req, res) => {
 
 router.get('/:id(\\d+)', (req, res) => {
 	models.users.findAll({
-		where: {
-			id : req.params.id
-		}
+		where : { 
+			id : req.params.id 
+		}, 
+		include : [{
+			model : models.poles,
+			include : [{
+				model : models.pillars,
+				include : [{
+					model : models.sub_pillars,
+					include : [{
+						model : models.questions,
+						include : [{
+							model : models.answers_possibilities,
+							include : [{
+								model : models.answers_type
+							}]
+						}]
+					}]
+				}]
+			}]
+		}]
 	})
 	.then(data => {
 		res.status(200).json(data)
-	});
-});
+	})
+})
 
 router.get('/:email', (req, res) => {
 	models.users.findOne({
