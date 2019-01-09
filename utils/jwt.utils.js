@@ -27,10 +27,23 @@ module.exports = {
 
         if(token != null) {
             let jwtToken = jwt.verify(token, JWT_SIGN_SECRET)
-            
+
             if(jwtToken != null)
                 userRole = jwtToken.role;
         }
         return userRole;
+    },
+
+    getUserId: authorization => {
+        let userId = null;
+        let token = module.exports.parseAuthorization(authorization);
+
+        if(token != null) {
+            let jwtToken = jwt.verify(token, JWT_SIGN_SECRET)
+
+            if(jwtToken != null)
+                userId = jwtToken.userId;
+        }
+        return userId;
     }
 }
