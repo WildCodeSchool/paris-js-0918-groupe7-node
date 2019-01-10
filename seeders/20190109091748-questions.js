@@ -79,7 +79,7 @@ module.exports = {
         agile_orientation: 'Agile capabilities ',
         createdAt : '2019-01-09 10:00:00',
         updatedAt : '2019-01-09 10:00:00',
-        subPillarId : 1,
+        subPillarId : 2,
       },], {});
   },
 
