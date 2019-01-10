@@ -1,7 +1,8 @@
 'use strict';
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
+  const bcrypt = require("bcrypt");
   const users = sequelize.define('users', {
     email: {type : DataTypes.STRING, allowNull : false},
     password: {type : DataTypes.STRING, allowNull : false},
@@ -28,15 +29,22 @@ module.exports = (sequelize, DataTypes) => {
     //   }
     // }
   });
-  // users.beforeBulkCreate((user, options) => {
-  //   return bcrypt.hashSync(user.password, 10)
-  //     .then(bcryptedPassword => {
-  //         user.password = bcryptedPassword;
-  //     })
-  //     .catch(err => {
-  //       throw new Error();
-  //     });
-  // });
+  users.beforeSave((user, options) => {
+    console.log("save");
+    return bcrypt.hash(user.password, 10)
+      .then(bcryptedPassword => {
+          user.password = bcryptedPassword;
+      })
+      .catch(err => {
+        throw new Error();
+      });
+  });
+  users.beforeBulkCreate((users, options) => {
+    //console.log("bulkcreate", users);
+    users.map(user => 
+      user.password = bcrypt.hashSync(user.password, 10)
+    )
+  });
   users.associate = function(models) {
     // associations can be defined here
     users.belongsTo(models.companies, {

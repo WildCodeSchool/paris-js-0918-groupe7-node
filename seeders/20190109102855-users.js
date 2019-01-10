@@ -1,8 +1,9 @@
 'use strict';
+const model = require('../models');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-      return queryInterface.bulkInsert('users', [{
+      return model.users.bulkCreate([{
         email: 'user1@banque-de-savoie.fr',
         password: 'Azer123',
         gender: 'male',

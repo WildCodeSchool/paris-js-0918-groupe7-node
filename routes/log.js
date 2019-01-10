@@ -61,11 +61,12 @@ module.exports = {
           .then(userFound => {
             if (!userFound) {
               //console.log("user don't exist, ok to create")
-              bcrypt.hash(password, 10, (err, bcryptedPassword) => {
+              // bcrypt.hash(password, 10, (err, bcryptedPassword) => {
                 models.users
                   .create({
                     email: email,
-                    password: bcryptedPassword,
+                    //password: bcryptedPassword,
+                    password: password,
                     reset_pass_token: null,
                     gender: gender,
                     age_range: age_range,
@@ -84,7 +85,7 @@ module.exports = {
                     console.error(err);
                     return res.status(500).json({ error: "cannot add user" });
                   });
-              });
+              // });
             } else {
               return res.status(409).json({ error: "user already exist" });
             }
