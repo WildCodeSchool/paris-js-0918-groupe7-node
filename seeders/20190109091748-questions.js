@@ -80,6 +80,12 @@ module.exports = {
         createdAt : '2019-01-09 10:00:00',
         updatedAt : '2019-01-09 10:00:00',
         subPillarId : 1,
+      },{
+        question: 'Customer satisfaction is taken into account to measure the success of the initiatives of the company',
+        agile_orientation: 'Agile capabilities ',
+        createdAt : '2019-01-09 10:00:00',
+        updatedAt : '2019-01-09 10:00:00',
+        subPillarId : 2,
       },], {});
   },
 

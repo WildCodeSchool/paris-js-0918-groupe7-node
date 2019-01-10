@@ -307,6 +307,31 @@ module.exports = {
         updatedAt : '2019-01-09 10:00:00',
         answersPossibilityId : 8,
         questionId : 13,
+      },{
+        createdAt : '2019-01-09 10:00:00',
+        updatedAt : '2019-01-09 10:00:00',
+        answersPossibilityId : 4,
+        questionId : 14,
+      },{
+        createdAt : '2019-01-09 10:00:00',
+        updatedAt : '2019-01-09 10:00:00',
+        answersPossibilityId : 5,
+        questionId : 14,
+      },{
+        createdAt : '2019-01-09 10:00:00',
+        updatedAt : '2019-01-09 10:00:00',
+        answersPossibilityId : 6,
+        questionId : 14,
+      },{
+        createdAt : '2019-01-09 10:00:00',
+        updatedAt : '2019-01-09 10:00:00',
+        answersPossibilityId : 7,
+        questionId : 14,
+      },{
+        createdAt : '2019-01-09 10:00:00',
+        updatedAt : '2019-01-09 10:00:00',
+        answersPossibilityId : 8,
+        questionId : 14,
       },], {});
   },
 
