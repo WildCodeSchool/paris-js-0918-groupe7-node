@@ -5,7 +5,7 @@ const models = require("../models");
 const nodemailer = require("nodemailer");
 
 //const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-const PASSWORD_REGEX = /^(?=.*\d).{4,8}$/;
+const PASSWORD_REGEX = /^(?=.*\d).{4,12}$/;
 
 // Routes
 module.exports = {
@@ -49,7 +49,7 @@ module.exports = {
         if (!PASSWORD_REGEX.test(password)) {
           return res.status(400).json({
             error:
-              "password invalid (must length 4-8 & include 1 number at least)"
+              "password invalid (must length 4-12 & include 1 number at least)"
           });
         }
 
