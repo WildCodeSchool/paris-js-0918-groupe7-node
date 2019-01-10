@@ -18,6 +18,23 @@ router.get('/:id(\\d+)', (req, res) => {
 	.then(data => {
 		res.status(200).json(data)
 	});
+});
+
+router.get('/uapq/:id(\\d+)', (req, res) => {
+	models.companies.findAll({
+		where: {
+			id : req.params.id
+		},
+		include : [{
+			model : models.users,
+			include : [{
+				model : models.users_answers_possibilities_questions
+			}]
+		}]
+	})
+	.then(data => {
+		res.status(200).json(data)
+	});
 })
 
 router.get('/:name', (req, res) => {

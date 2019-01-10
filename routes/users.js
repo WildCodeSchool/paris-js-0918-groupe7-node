@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models');
 const userCtrl = require('./log');
+const jwtUtils = require('../utils/jwt.utils')
 
 router.get('/', (req, res) => {
 	models.users.findAll()
@@ -10,11 +11,14 @@ router.get('/', (req, res) => {
 	});
 });
 
-router.get('/:id(\\d+)', (req, res) => {
+router.get('/surveyById', (req, res) => {
+	const headerAuth = req.headers['authorization'];
+	const userId = jwtUtils.getUserId(headerAuth) ;
+
 	models.users.findAll({
-		where : { 
-			id : req.params.id 
-		}, 
+		where : {
+			id : userId
+		},
 		include : [{
 			model : models.poles,
 			include : [{

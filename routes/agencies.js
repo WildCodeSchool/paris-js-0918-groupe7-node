@@ -8,16 +8,32 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/:id(\\d+)", (req, res) => {
-  models.agencies
-    .findAll({
-      where: {
-        id: req.params.id
-      }
-    })
-    .then(data => {
-      res.status(200).json(data);
-    });
+router.get('/:id(\\d+)', (req, res) => {
+	models.agencies.findAll({
+		where: {
+			id : req.params.id
+		}
+	})
+	.then(data => {
+		res.status(200).json(data)
+	});
+});
+
+router.get('/uapq/:id(\\d+)', (req, res) => {
+	models.agencies.findAll({
+		where: {
+			id : req.params.id
+		},
+		include : [{
+			model : models.users,
+			include : [{
+				model : models.users_answers_possibilities_questions
+			}]
+		}]
+	})
+	.then(data => {
+		res.status(200).json(data);
+	});
 });
 
 router.get("/companyId/:id(\\d+)", (req, res) => {

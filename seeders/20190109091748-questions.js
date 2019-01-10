@@ -74,6 +74,12 @@ module.exports = {
         createdAt : '2019-01-09 10:00:00',
         updatedAt : '2019-01-09 10:00:00',
         subPillarId : 12,
+      },{
+        question: 'Our clients are involved in the product development',
+        agile_orientation: 'Agile capabilities ',
+        createdAt : '2019-01-09 10:00:00',
+        updatedAt : '2019-01-09 10:00:00',
+        subPillarId : 1,
       },], {});
   },
 
