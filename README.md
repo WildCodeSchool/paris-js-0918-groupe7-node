@@ -36,3 +36,15 @@ Pensez à faire un fichier `.gitignore` (e.g : avec http://gitignore.io) en ajou
 
 Pensez à jeter un œil sur les détails sur la sécurité côté node : http://expressjs.com/en/advanced/best-practice-security.html. 
 # exton_test
+
+
+
+```
+npm install sequelize
+npm install mysql2
+npm install express
+npm install nodemon
+npm install morgan
+npm install body-parser
+npm install cors
+```

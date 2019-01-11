@@ -1,0 +1,811 @@
+{
+  "info": {
+    "title": "paris-js-0918-groupe7-node",
+    "version": "1.0.0",
+    "license": {
+      "name": "ISC"
+    },
+    "description": "Api to manage questions / answers"
+  },
+  "tags": [
+    {
+      "name" : "default"
+    },
+    {
+      "name" : "companies"
+    },
+    {
+      "name" : "agencies"
+    },
+    {
+      "name" : "answers_possibilities"
+    },
+    {
+      "name" : "answers_type"
+    },
+    {
+      "name" : "email_extensions"
+    },
+    {
+      "name" : "pillars_poles"
+    },
+    {
+      "name" : "pillars"
+    },
+    {
+      "name" : "poles"
+    },
+    {
+      "name" : "questions_answers_possibilities"
+    },
+    {
+      "name" : "questions"
+    },
+    {
+      "name" : "sub_pillars"
+    },
+    {
+      "name" : "users_answers_possibilities_questions"
+    },
+    {
+      "name" : "users"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags" : ["default"],
+        "summary": "/",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/companies": {
+      "get": {
+        "tags" : ["companies"],
+        "summary": "/companies",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["companies"],
+        "summary": "/companies",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/companies/{id(\\d+)}": {
+      "get": {
+        "tags" : ["companies"],
+        "summary": "/companies/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "tags" : ["companies"],
+        "summary": "/companies/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "tags" : ["companies"],
+        "summary": "/companies/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/companies/{name}": {
+      "get": {
+        "tags" : ["companies"],
+        "summary": "/companies/{name}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/email_extensions": {
+      "get": {
+        "tags" : ["email_extensions"],
+        "summary": "/email_extensions",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["email_extensions"],
+        "summary": "/email_extensions",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/email_extensions/{id(\\d+)}": {
+      "get": {
+        "tags" : ["email_extensions"],
+        "summary": "/email_extensions/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "tags" : ["email_extensions"],
+        "summary": "/email_extensions/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "tags" : ["email_extensions"],
+        "summary": "/email_extensions/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/agencies": {
+      "get": {
+        "tags" : ["agencies"],
+        "summary": "/agencies",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["agencies"],
+        "summary": "/agencies",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/agencies/{id(\\d+)}": {
+      "get": {
+        "tags" : ["agencies"],
+        "summary": "/agencies/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "tags" : ["agencies"],
+        "summary": "/agencies/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "tags" : ["agencies"],
+        "summary": "/agencies/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/pillars": {
+      "get": {
+        "tags" : ["pillars"],
+        "summary": "/pillars",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["pillars"],
+        "summary": "/pillars",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/pillars/{id(\\d+)}": {
+      "get": {
+        "tags" : ["pillars"],
+        "summary": "/pillars/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "tags" : ["pillars"],
+        "summary": "/pillars/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "tags" : ["pillars"],
+        "summary": "/pillars/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/sub_pillars": {
+      "get": {
+        "tags" : ["sub_pillars"],
+        "summary": "/sub_pillars",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["sub_pillars"],
+        "summary": "/sub_pillars",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/sub_pillars/{id(\\d+)}": {
+      "get": {
+        "tags" : ["sub_pillars"],
+        "summary": "/sub_pillars/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "tags" : ["sub_pillars"],
+        "summary": "/sub_pillars/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "tags" : ["sub_pillars"],
+        "summary": "/sub_pillars/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/poles": {
+      "get": {
+        "tags" : ["poles"],
+        "summary": "/poles",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["poles"],
+        "summary": "/poles",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/poles/{id(\\d+)}": {
+      "get": {
+        "tags" : ["poles"],
+        "summary": "/poles/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "tags" : ["poles"],
+        "summary": "/poles/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "tags" : ["poles"],
+        "summary": "/poles/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "tags" : ["users"],
+        "summary": "/users",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/users/{id(\\d+)}": {
+      "get": {
+        "tags" : ["users"],
+        "summary": "/users/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "tags" : ["users"],
+        "summary": "/users/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "tags" : ["users"],
+        "summary": "/users/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/users/{email}": {
+      "get": {
+        "tags" : ["users"],
+        "summary": "/users/{email}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/users/register/": {
+      "post": {
+        "tags" : ["users"],
+        "summary": "/users/register/",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/users/login/": {
+      "post": {
+        "tags" : ["users"],
+        "summary": "/users/login/",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/users/forgot/": {
+      "post": {
+        "tags" : ["users"],
+        "summary": "/users/forgot/",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/users/reset/{token}": {
+      "put": {
+        "tags" : ["users"],
+        "summary": "/users/reset/{token}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/answers_possibilities": {
+      "get": {
+        "tags" : ["answers_possibilities"],
+        "summary": "/answers_possibilities",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["answers_possibilities"],
+        "summary": "/answers_possibilities",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/answers_possibilities/{id(\\d+)}": {
+      "get": {
+        "tags" : ["answers_possibilities"],
+        "summary": "/answers_possibilities/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "tags" : ["answers_possibilities"],
+        "summary": "/answers_possibilities/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "tags" : ["answers_possibilities"],
+        "summary": "/answers_possibilities/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/answers_type": {
+      "get": {
+        "tags" : ["answers_type"],
+        "summary": "/answers_type",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["answers_type"],
+        "summary": "/answers_type",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/answers_type/{id(\\d+)}": {
+      "get": {
+        "tags" : ["answers_type"],
+        "summary": "/answers_type/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "tags" : ["answers_type"],
+        "summary": "/answers_type/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "tags" : ["answers_type"],
+        "summary": "/answers_type/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/questions": {
+      "get": {
+        "tags" : ["questions"],
+        "summary": "/questions",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["questions"],
+        "summary": "/questions",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/questions/{id(\\d+)}": {
+      "get": {
+        "tags" : ["questions"],
+        "summary": "/questions/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "tags" : ["questions"],
+        "summary": "/questions/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "tags" : ["questions"],
+        "summary": "/questions/{id(\\d+)}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id(\\d+)",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/pillars_poles": {
+      "get": {
+        "tags" : ["pillars_poles"],
+        "summary": "/pillars_poles",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["pillars_poles"],
+        "summary": "/pillars_poles",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/questions_answers_possibilities": {
+      "get": {
+        "tags" : ["questions_answers_possibilities"],
+        "summary": "/questions_answers_possibilities",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["questions_answers_possibilities"],
+        "summary": "/questions_answers_possibilities",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/users_answers_possibilities_questions": {
+      "get": {
+        "tags" : ["users_answers_possibilities_questions"],
+        "summary": "/users_answers_possibilities_questions",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "tags" : ["users_answers_possibilities_questions"],
+        "summary": "/users_answers_possibilities_questions",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    }
+  },
+  "swagger": "2.0"
+}
