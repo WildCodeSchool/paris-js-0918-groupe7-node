@@ -277,30 +277,43 @@ module.exports = {
     const companyId = data.companyId;
     const poleId = data.poleId;
 
-
     models.users
-    .create({
-      email: email,
-      password: password,
-      reset_pass_token: null,
-      gender: gender,
-      age_range: age_range,
-      seniority: seniority,
-      role: role,
-      is_active: is_active,
-      business_focus: business_focus,
-      agencyId: agencyId,
-      companyId: companyId,
-      poleId: poleId
+    .findOne({
+      attributes: ["email"],
+      where: { email: email }
     })
-    .then(newUser => {
-      return res.status(201).json({ userId: newUser.id });
+    .then(userFound => {
+      if (!userFound) {
+        models.users
+        .create({
+          email: email,
+          password: password,
+          reset_pass_token: null,
+          gender: gender,
+          age_range: age_range,
+          seniority: seniority,
+          role: role,
+          is_active: is_active,
+          business_focus: business_focus,
+          agencyId: agencyId,
+          companyId: companyId,
+          poleId: poleId
+        })
+        .then(newUser => {
+          return res.status(201).json({ userId: newUser.id });
+        })
+        .catch(err => {
+          console.error(err);
+          return res.status(500).json({ error: "cannot add user" });
+        });
+        
+      } else {
+        return res.status(409).json({ error: "user already exist" });
+      }
     })
     .catch(err => {
-      console.error(err);
-      return res.status(500).json({ error: "cannot add user" });
+      return res.status(500).json({ error: "unable to verify user"});
     });
-
   }
 }
 
