@@ -16,6 +16,26 @@ module.exports = {
             expiresIn: '1h'
         })
     },
+    
+    GenerateTokenForRegister: registerData => {
+        return jwt.sign({
+            email: registerData.email,
+            password: registerData.password,
+            gender: registerData.gender,
+            age_range: registerData.age_range,
+            seniority: registerData.seniority,
+            role: registerData.role,
+            is_active: registerData.is_active,
+            business_focus: registerData.business_focus,
+            agencyId: registerData.agencyId,
+            companyId: registerData.companyId,
+            poleId: registerData.poleId,
+        },
+        JWT_SIGN_SECRET,
+        {
+            expiresIn: '1h'
+        })
+    },
 
     parseAuthorization: authorization => {
         return (authorization != null) ? authorization.replace('Bearer ', '') : null;
@@ -39,11 +59,25 @@ module.exports = {
         let token = module.exports.parseAuthorization(authorization);
 
         if(token != null) {
-            let jwtToken = jwt.verify(token, JWT_SIGN_SECRET)
+            let jwtToken = jwt.verify(token, JWT_SIGN_SECRET);
 
             if(jwtToken != null)
                 userId = jwtToken.userId;
         }
         return userId;
+    },
+
+    getRegisterData: authorization => {
+        let registerData = null;
+        //let token = module.exports.parseAuthorization(authorization);
+        let token = authorization;
+
+        if(token != null) {
+            let jwtToken = jwt.verify(token, JWT_SIGN_SECRET);
+
+            if(jwtToken != null)
+                registerData = jwtToken;
+        }
+        return registerData;
     }
 }

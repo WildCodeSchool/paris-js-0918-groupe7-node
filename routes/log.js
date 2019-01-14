@@ -4,14 +4,12 @@ const jwtUtils = require("../utils/jwt.utils");
 const models = require("../models");
 const nodemailer = require("nodemailer");
 
-//const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const PASSWORD_REGEX = /^(?=.*\d).{4,12}$/;
 
 // Routes
 module.exports = {
   register: (req, res) => {
     const newEmail_ext = [];
-    //const EMAIL_REGEX_TEST = /^@(.*)/;
 
     models.email_extensions
       .findAll({
@@ -19,29 +17,20 @@ module.exports = {
       })
       .then(data => {
         data.map(e => newEmail_ext.push(e.dataValues.email_extension));
-        //console.log('*',newEmail_ext)
+        console.log('*',newEmail_ext)
 
         // Params
         const email = req.body.email;
         const password = req.body.password;
-        const gender = req.body.gender;
-        const age_range = req.body.age_range;
-        const seniority = req.body.seniority;
-        const role = req.body.role;
-        const is_active = req.body.is_active;
-        const business_focus = req.body.business_focus;
-        const agencyId = req.body.agencyId;
-        const companyId = req.body.companyId;
-        const poleId = req.body.poleId;
+        const test = !newEmail_ext.includes(email.slice(email.indexOf("@"), email.length))
+
 
         // missing params?
         if (email == null || password == null) {
           return res.status(400).json({ error: "missing parameters" });
         }
         // Wrong mail extension
-        if (
-          !newEmail_ext.includes(email.slice(email.indexOf("@"), email.length))
-        ) {
+        if (!newEmail_ext.includes(email.slice(email.indexOf("@"), email.length))) {
           return res.status(400).json({ error: "email is not valid" });
         }
 
@@ -60,38 +49,45 @@ module.exports = {
           })
           .then(userFound => {
             if (!userFound) {
-              //console.log("user don't exist, ok to create")
-              // bcrypt.hash(password, 10, (err, bcryptedPassword) => {
-                models.users
-                  .create({
-                    email: email,
-                    //password: bcryptedPassword,
-                    password: password,
-                    reset_pass_token: null,
-                    gender: gender,
-                    age_range: age_range,
-                    seniority: seniority,
-                    role: role,
-                    is_active: is_active,
-                    business_focus: business_focus,
-                    agencyId: agencyId,
-                    companyId: companyId,
-                    poleId: poleId
-                  })
-                  .then(newUser => {
-                    return res.status(201).json({ userId: newUser.id });
-                  })
-                  .catch(err => {
-                    console.error(err);
-                    return res.status(500).json({ error: "cannot add user" });
-                  });
-              // });
+             
+              const token = jwtUtils.GenerateTokenForRegister(req.body);
+              
+              //Envoi du mail d'activation
+              const smtpTransport = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                  user: "extondb@gmail.com",
+                  pass: "Omega123?"
+                }
+              });
+              const mailOptions = {
+                to: email,
+                from: "extondb@gmail.com",
+                subject: "Activating your account",
+                text:
+                  "You are receiving this because you (or someone else) have registered an account on ExtonAAA.\n\n" +
+                  "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
+                  "http://localhost:3002/users/activate/" +
+                  token +
+                  "\n\n" +
+                  "If you did not request this, please ignore this email and your password will remain unchanged.\n"
+              };
+              smtpTransport.sendMail(mailOptions, function(err) {
+                req.flash(
+                  "info",
+                  "An e-mail has been sent to " +
+                    email +
+                    " with further instructions."
+                );
+                done(err, "done");
+              });
+              return res.status(200).json({ message: "email send" });
             } else {
               return res.status(409).json({ error: "user already exist" });
             }
           })
           .catch(err => {
-            return res.status(500).json({ error: "unable to verify user" });
+            return res.status(500).json({ error: "unable to verify user"});
           });
       });
   },
@@ -251,7 +247,6 @@ module.exports = {
     
     return res.status(200).json({"role": userRole});
   },
-  
   requireRole: role => {
     return (req, res, next) => {
       const headerAuth = req.headers['authorization'];
@@ -264,5 +259,49 @@ module.exports = {
       }
     }
   },
+  activate: (req, res) => {
+
+    // Appel du décryptage du token
+    // const headerAuth = req.headers["authorization"];
+    const data = jwtUtils.getRegisterData(req.params.token);
+
+    // Params
+    const email = data.email;
+    const password = data.password;
+    const gender = data.gender;
+    const age_range = data.age_range;
+    const seniority = data.seniority;
+    const role = data.role;
+    const is_active = data.is_active;
+    const business_focus = data.business_focus;
+    const agencyId = data.agencyId;
+    const companyId = data.companyId;
+    const poleId = data.poleId;
+
+
+    models.users
+    .create({
+      email: email,
+      password: password,
+      reset_pass_token: null,
+      gender: gender,
+      age_range: age_range,
+      seniority: seniority,
+      role: role,
+      is_active: is_active,
+      business_focus: business_focus,
+      agencyId: agencyId,
+      companyId: companyId,
+      poleId: poleId
+    })
+    .then(newUser => {
+      return res.status(201).json({ userId: newUser.id });
+    })
+    .catch(err => {
+      console.error(err);
+      return res.status(500).json({ error: "cannot add user" });
+    });
+
+  }
 }
 
