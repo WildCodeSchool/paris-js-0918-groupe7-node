@@ -67,7 +67,7 @@ module.exports = {
                 text:
                   "You are receiving this because you (or someone else) have registered an account on ExtonAAA.\n\n" +
                   "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
-                  "http://localhost:3002/users/activate/" +
+                  "http://localhost:3000/account_activation/" +
                   token +
                   "\n\n" +
                   "If you did not request this, please ignore this email and your password will remain unchanged.\n"
@@ -262,7 +262,6 @@ module.exports = {
   activate: (req, res) => {
 
     // Appel du décryptage du token
-    // const headerAuth = req.headers["authorization"];
     const data = jwtUtils.getRegisterData(req.params.token);
 
     // Params
