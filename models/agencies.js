@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     agencies.hasMany(models.users, {
       foreignKey: {
-        allowNull : false
+        allowNull : true
       }
     })
     agencies.belongsTo(models.companies, {
