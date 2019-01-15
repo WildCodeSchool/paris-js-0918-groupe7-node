@@ -65,6 +65,8 @@ router.post('/getrole/', userCtrl.getRole);
 
 router.put('/reset/:token', userCtrl.reset);
 
+router.post('/activate/:token', userCtrl.activate);
+
 router.put('/:id(\\d+)', (req, res) => {
 	models.users.findById(req.params.id)
 	.then(usersFound => {

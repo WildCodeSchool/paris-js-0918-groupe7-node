@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     // }
   });
   users.beforeSave((user, options) => {
-    console.log("save");
+    //console.log("save");
     return bcrypt.hash(user.password, 10)
       .then(bcryptedPassword => {
           user.password = bcryptedPassword;
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     users.belongsTo(models.agencies, {
       foreignKey : {
-        allowNull : false,
+        allowNull : true,
       }
     });
     users.belongsTo(models.poles, {
