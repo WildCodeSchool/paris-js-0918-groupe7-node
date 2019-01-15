@@ -270,7 +270,6 @@ module.exports = {
     const gender = data.gender;
     const age_range = data.age_range;
     const seniority = data.seniority;
-    const role = data.role;
     const is_active = data.is_active;
     const business_focus = data.business_focus;
     const agencyId = data.agencyId;
@@ -292,7 +291,7 @@ module.exports = {
           gender: gender,
           age_range: age_range,
           seniority: seniority,
-          role: role,
+          role: "client",
           is_active: is_active,
           business_focus: business_focus,
           agencyId: agencyId,
