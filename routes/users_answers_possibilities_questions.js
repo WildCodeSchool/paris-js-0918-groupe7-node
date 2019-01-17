@@ -9,6 +9,28 @@ router.get('/', (req, res) => {
 	});
 })
 
+router.get('/getinfo', (req, res) => {
+	models.users_answers_possibilities_questions.findAll({
+		include : [{
+			model : models.questions,
+			attributes : ['question', 'agile_orientation']
+		},{
+			model : models.answers_possibilities,
+			attributes : ['answer', 'weight']
+		},{
+			model : models.users,
+			attributes : ['id', 'gender', 'age_range', 'seniority', 'business_focus'],
+			include : [{
+				model : models.poles,
+				attributes : ['name']
+			}]
+		}]
+	})
+	.then(data => {
+		res.status(200).json(data)
+	});
+})
+
 router.post('/', (req, res) => {
 	const data = req.body;
 	console.log(data);

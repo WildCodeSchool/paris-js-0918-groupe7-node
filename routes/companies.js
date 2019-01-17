@@ -9,6 +9,17 @@ router.get('/', (req, res) => {
 	});
 });
 
+router.get('/isactive', (req, res) => {
+	models.companies.findAll({
+		where : {
+			is_active : 1
+		}
+	})
+	.then(data => {
+		res.status(200).json(data)
+	});
+});
+
 router.get('/:id(\\d+)', (req, res) => {
 	models.companies.findAll({
 		where: {
@@ -25,10 +36,23 @@ router.get('/uapq/:id(\\d+)', (req, res) => {
 		where: {
 			id : req.params.id
 		},
+		attributes : ['name'],
 		include : [{
 			model : models.users,
+			attributes : ['id', 'gender', 'age_range', 'seniority', 'business_focus'],
 			include : [{
-				model : models.users_answers_possibilities_questions
+				model : models.users_answers_possibilities_questions,
+				attributes : ['id'],
+				include : [{
+					model : models.questions,
+					attributes : ['question', 'agile_orientation']
+				},{
+					model : models.answers_possibilities,
+					attributes : ['answer', 'weight']
+				}]
+			},{
+				model : models.poles,
+				attributes : ['name']
 			}]
 		}]
 	})
