@@ -31,7 +31,7 @@ router.get('/:id(\\d+)', (req, res) => {
 });
 
 router.get('/uapq/:id(\\d+)', (req, res) => {
-	models.companies.findAll({
+	models.agencies.findAll({
 		where: {
 			id : req.params.id,
     },
