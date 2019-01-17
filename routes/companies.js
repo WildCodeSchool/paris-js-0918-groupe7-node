@@ -59,7 +59,7 @@ router.get('/uapq/:id(\\d+)', (req, res) => {
 	.then(data => {
 		res.status(200).json(data)
 	});
-})
+});
 
 router.get('/:name', (req, res) => {
 	models.companies.findAll({
@@ -70,7 +70,7 @@ router.get('/:name', (req, res) => {
 	.then(data => {
 		res.status(200).json(data)
 	});
-})
+});
 
 router.post('/', (req, res) => {
 	const data = req.body;
