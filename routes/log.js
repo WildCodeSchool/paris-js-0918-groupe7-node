@@ -159,7 +159,7 @@ module.exports = {
               });
               const mailOptions = {
                 to: email,
-                from: "exton@gmail.com",
+                from: "extondb@gmail.com",
                 subject: "Node.js Password Reset",
                 text:
                   "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
