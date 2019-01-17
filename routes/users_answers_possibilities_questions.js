@@ -19,7 +19,7 @@ router.get('/getinfo', (req, res) => {
 			attributes : ['answer', 'weight']
 		},{
 			model : models.users,
-			attributes : ['id', 'seniority', 'gender', 'age_range', 'seniority', 'business_focus'],
+			attributes : ['id', 'gender', 'age_range', 'seniority', 'business_focus'],
 			include : [{
 				model : models.poles,
 				attributes : ['name']
