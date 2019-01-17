@@ -30,7 +30,7 @@ router.get('/uapq/:id(\\d+)', (req, res) => {
 			attributes : ['id', 'gender', 'age_range', 'seniority', 'business_focus'],
 			include : [{
 				model : models.users_answers_possibilities_questions,
-				attributes : ['id', 'answersPossibilityId', 'questionId', 'userId'],
+				attributes : ['id'],
 				include : [{
 					model : models.questions,
 					attributes : ['question', 'agile_orientation']
