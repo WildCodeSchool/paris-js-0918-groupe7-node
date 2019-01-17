@@ -8,6 +8,17 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get('/isactive', (req, res) => {
+	models.agencies.findAll({
+		where : {
+			is_active : 1
+		}
+	})
+	.then(data => {
+		res.status(200).json(data)
+	});
+});
+
 router.get('/:id(\\d+)', (req, res) => {
 	models.agencies.findAll({
 		where: {
