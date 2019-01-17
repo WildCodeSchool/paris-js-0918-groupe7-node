@@ -1,8 +1,9 @@
 'use strict';
+const model = require('../models');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-      return queryInterface.bulkInsert('sub_pillars', [{
+      return model.sub_pillars.bulkCreate([{
         name: 'Client centricity',
         is_active : 1,
         createdAt : '2019-01-09 10:00:00',
