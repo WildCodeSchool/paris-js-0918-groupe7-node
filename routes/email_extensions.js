@@ -61,6 +61,29 @@ router.put('/:id(\\d+)', (req, res) => {
 	});
 });
 
+router.delete('/companyId/:id(\\d+)', (req, res) => {
+	models.email_extensions.findAll({
+		where: {
+		  companyId: req.params.id
+		}
+	  })
+	  .then(email_extensionsFound => {
+		if(email_extensionsFound){
+			const data = req.body;
+			console.log(data);
+			models.email_extensions.destroy(
+				{ where : { companyId : req.params.id } }
+			)
+			.then(updatedEmailExtension => {
+				res.status(200).send(`EmailExtension from companyId : ${req.params.id } deleted`);
+			});
+		}
+		else{
+			return res.status(404).send(`No EmailExtension found for the compagnyId ${req.params.id} in DB`);
+		}
+	});
+});
+
 router.delete('/:id(\\d+)', (req, res) => {
 	models.email_extensions.findById(req.params.id)
 	.then(email_extensionsFound => {

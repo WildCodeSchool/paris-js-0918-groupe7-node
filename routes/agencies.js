@@ -103,6 +103,29 @@ router.put("/:id(\\d+)", (req, res) => {
   });
 });
 
+router.put("/companyId/:id(\\d+)", (req, res) => {
+  models.agencies.findAll({
+    where: {
+      companyId: req.params.id
+    }
+  })
+  .then(agenciesFound => {
+    if (agenciesFound) {
+      const data = req.body;
+      console.log(data);
+      models.agencies
+        .update(data, { where: { companyId: req.params.id } })
+        .then(updatedAgency => {
+          res.status(200).send(`Agencies desactivated for companyId : ${req.params.id}`);
+        });
+    } else {
+      return res
+        .status(404)
+        .send(`no agencies found for the compagnyId ${req.params.id} does not exist in DB`);
+    }
+  });
+});
+
 router.delete("/:id(\\d+)", (req, res) => {
   models.agencies.findById(req.params.id).then(agenciesFound => {
     if (agenciesFound) {
