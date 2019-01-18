@@ -1,8 +1,12 @@
 'use strict';
 
+console.log(process.env);
+
+const model = require('../models');
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-      return queryInterface.bulkInsert('companies', [{
+      return model.companies.bulkCreate([{
         name: 'BNP Paribas',
         is_active: 1,
         createdAt : '2019-01-09 10:00:00',

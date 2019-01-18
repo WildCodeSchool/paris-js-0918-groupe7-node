@@ -1,8 +1,9 @@
 'use strict';
+const model = require('../models');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-      return queryInterface.bulkInsert('answers_possibilities', [{
+      return model.answers_possibilities.bulkCreate([{
         answer: 'Yes',
         weight: 8,
         order: 'true',
