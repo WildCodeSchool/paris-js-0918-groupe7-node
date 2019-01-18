@@ -34,6 +34,7 @@
     "npm": "^6.5.0",
     "pg": "^7.8.0",
     "sequelize": "^4.41.2",
+    "sequelize-cli": "^5.4.0",
     "swagger-ui-express": "^4.0.2"
   }
 }
