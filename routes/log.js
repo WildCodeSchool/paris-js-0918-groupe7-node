@@ -17,7 +17,7 @@ module.exports = {
       })
       .then(data => {
         data.map(e => newEmail_ext.push(e.dataValues.email_extension));
-        console.log('*',newEmail_ext)
+        console.log('*', newEmail_ext)
 
         // Params
         const email = req.body.email;
@@ -49,15 +49,15 @@ module.exports = {
           })
           .then(userFound => {
             if (!userFound) {
-             
+
               const token = jwtUtils.GenerateTokenForRegister(req.body);
-              
+
               //Envoi du mail d'activation
               const smtpTransport = nodemailer.createTransport({
                 service: "gmail",
                 auth: {
                   user: "extondb@gmail.com",
-                  pass: "Omega123?"
+                  pass: "adizgopbmutwnmae"
                 }
               });
               const mailOptions = {
@@ -72,12 +72,12 @@ module.exports = {
                   "\n\n" +
                   "If you did not request this, please ignore this email and your password will remain unchanged.\n"
               };
-              smtpTransport.sendMail(mailOptions, function(err) {
+              smtpTransport.sendMail(mailOptions, function (err) {
                 req.flash(
                   "info",
                   "An e-mail has been sent to " +
-                    email +
-                    " with further instructions."
+                  email +
+                  " with further instructions."
                 );
                 done(err, "done");
               });
@@ -87,7 +87,7 @@ module.exports = {
             }
           })
           .catch(err => {
-            return res.status(500).json({ error: "unable to verify user"});
+            return res.status(500).json({ error: "unable to verify user" });
           });
       });
   },
@@ -154,10 +154,10 @@ module.exports = {
                 service: "gmail",
                 auth: {
                   user: "extondb@gmail.com",
-                  pass: "Omega123?"
+                  pass: "adizgopbmutwnmae"
                 }
               });
-              
+
               const mailOptions = {
                 to: email,
                 from: "extondb@gmail.com",
@@ -170,12 +170,12 @@ module.exports = {
                   "\n\n" +
                   "If you did not request this, please ignore this email and your password will remain unchanged.\n"
               };
-              smtpTransport.sendMail(mailOptions, function(err) {
+              smtpTransport.sendMail(mailOptions, function (err) {
                 req.flash(
                   "info",
                   "An e-mail has been sent to " +
-                    email +
-                    " with further instructions."
+                  email +
+                  " with further instructions."
                 );
                 done(err, "done");
               });
@@ -242,18 +242,18 @@ module.exports = {
   getRole: (req, res) => {
     const headerAuth = req.headers["authorization"];
     const userRole = jwtUtils.getUserRole(headerAuth);
-    
-    if(userRole === null)
-      return res.status(400).json({'error' : 'wrong token'})
-    
-    return res.status(200).json({"role": userRole});
+
+    if (userRole === null)
+      return res.status(400).json({ 'error': 'wrong token' })
+
+    return res.status(200).json({ "role": userRole });
   },
   requireRole: role => {
     return (req, res, next) => {
       const headerAuth = req.headers['authorization'];
-      const userRole   = jwtUtils.getUserRole(headerAuth) ;
+      const userRole = jwtUtils.getUserRole(headerAuth);
 
-      if(userRole === role) {
+      if (userRole === role) {
         next();
       } else {
         res.send(403);
@@ -278,42 +278,42 @@ module.exports = {
     const poleId = data.poleId;
 
     models.users
-    .findOne({
-      attributes: ["email"],
-      where: { email: email }
-    })
-    .then(userFound => {
-      if (!userFound) {
-        models.users
-        .create({
-          email: email,
-          password: password,
-          reset_pass_token: null,
-          gender: gender,
-          age_range: age_range,
-          seniority: seniority,
-          role: "client",
-          is_active: is_active,
-          business_focus: business_focus,
-          agencyId: agencyId,
-          companyId: companyId,
-          poleId: poleId
-        })
-        .then(newUser => {
-          return res.status(201).json({ userId: newUser.id });
-        })
-        .catch(err => {
-          console.error(err);
-          return res.status(500).json({ error: "cannot add user" });
-        });
-        
-      } else {
-        return res.status(409).json({ error: "user already exist" });
-      }
-    })
-    .catch(err => {
-      return res.status(500).json({ error: "unable to verify user"});
-    });
+      .findOne({
+        attributes: ["email"],
+        where: { email: email }
+      })
+      .then(userFound => {
+        if (!userFound) {
+          models.users
+            .create({
+              email: email,
+              password: password,
+              reset_pass_token: null,
+              gender: gender,
+              age_range: age_range,
+              seniority: seniority,
+              role: "client",
+              is_active: is_active,
+              business_focus: business_focus,
+              agencyId: agencyId,
+              companyId: companyId,
+              poleId: poleId
+            })
+            .then(newUser => {
+              return res.status(201).json({ userId: newUser.id });
+            })
+            .catch(err => {
+              console.error(err);
+              return res.status(500).json({ error: "cannot add user" });
+            });
+
+        } else {
+          return res.status(409).json({ error: "user already exist" });
+        }
+      })
+      .catch(err => {
+        return res.status(500).json({ error: "unable to verify user" });
+      });
   }
 }
 
