@@ -41,10 +41,20 @@ Pensez à jeter un œil sur les détails sur la sécurité côté node : http://
 
 ```
 npm install sequelize
+npm install mysql
 npm install mysql2
 npm install express
 npm install nodemon
 npm install morgan
 npm install body-parser
 npm install cors
+npm install bcrypt
+npm install connection-string
+npm install dotenv
+npm install express-oas-generator
+npm install jsonwebtoken
+npm install nodemailer
+npm install pg
+npm install sequelize-cli
+npm install swagger-ui-express
 ```
