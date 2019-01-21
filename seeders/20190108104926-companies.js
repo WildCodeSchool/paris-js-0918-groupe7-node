@@ -1,4 +1,7 @@
 'use strict';
+
+console.log(process.env);
+
 const model = require('../models');
 
 module.exports = {

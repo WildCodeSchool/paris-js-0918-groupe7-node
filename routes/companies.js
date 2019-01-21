@@ -91,7 +91,7 @@ router.put('/:id(\\d+)', (req, res) => {
 	.then(companiesFound => {
 		if(companiesFound){
 			const data = req.body;
-			console.log(data);
+			console.log("debug ====>", data);
 			models.companies.update(
 				data,
 				{ where : { id : req.params.id } }

@@ -72,6 +72,19 @@ router.get("/companyId/:id(\\d+)", (req, res) => {
     });
 });
 
+router.get("/companyId/:id(\\d+)/is_active", (req, res) => {
+  models.agencies
+    .findAll({
+      where: {
+        companyId: req.params.id,
+        is_active: 1
+      }
+    })
+    .then(data => {
+      res.status(200).json(data);
+    });
+});
+
 router.post("/", (req, res) => {
   const data = req.body;
   const newAgency = new models.agencies(data);
@@ -99,6 +112,29 @@ router.put("/:id(\\d+)", (req, res) => {
       return res
         .status(404)
         .send(`Agency ${req.params.id} does not exist in DB`);
+    }
+  });
+});
+
+router.put("/companyId/:id(\\d+)", (req, res) => {
+  models.agencies.findAll({
+    where: {
+      companyId: req.params.id
+    }
+  })
+  .then(agenciesFound => {
+    if (agenciesFound) {
+      const data = req.body;
+      console.log(data);
+      models.agencies
+        .update(data, { where: { companyId: req.params.id } })
+        .then(updatedAgency => {
+          res.status(200).send(`Agencies desactivated for companyId : ${req.params.id}`);
+        });
+    } else {
+      return res
+        .status(404)
+        .send(`no agencies found for the compagnyId ${req.params.id} does not exist in DB`);
     }
   });
 });

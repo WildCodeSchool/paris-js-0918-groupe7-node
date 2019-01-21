@@ -157,6 +157,7 @@ module.exports = {
                   pass: "Omega123?"
                 }
               });
+              
               const mailOptions = {
                 to: email,
                 from: "extondb@gmail.com",

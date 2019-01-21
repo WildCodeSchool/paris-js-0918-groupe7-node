@@ -11,6 +11,20 @@ router.get('/', (req, res) => {
 	});
 });
 
+router.get('/companyUsers=:companyName', (req, res) => {
+	models.users.findAll({
+		attributes: ["email", "role"],
+		where: { is_active: 1 },
+		include: [{
+			model: models.companies,
+			where: { name: req.params.companyName }
+		}] 
+	})
+	.then(data => {
+		res.status(200).json(data)
+	});
+});
+
 router.get('/surveyById', (req, res) => {
 	const headerAuth = req.headers['authorization'];
 	const userId = jwtUtils.getUserId(headerAuth) ;
