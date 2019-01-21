@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 router.get('/isactive', (req, res) => {
 	models.companies.findAll({
 		where : {
-			is_active : 1 || true
+			is_active : true
 		}
 	})
 	.then(data => {
