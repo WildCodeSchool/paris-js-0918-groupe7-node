@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 router.get('/isactive', (req, res) => {
 	models.agencies.findAll({
 		where : {
-			is_active : 1
+			is_active : true
 		}
 	})
 	.then(data => {
@@ -134,7 +134,7 @@ router.put("/companyId/:id(\\d+)", (req, res) => {
     } else {
       return res
         .status(404)
-        .send(`no agencies found for the compagnyId ${req.params.id} does not exist in DB`);
+        .send(`no agencies found for the compagnyId ${req.params.id} in DB`);
     }
   });
 });
