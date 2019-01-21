@@ -121,7 +121,7 @@ router.put("/companyId/:id(\\d+)", (req, res) => {
     } else {
       return res
         .status(404)
-        .send(`no agencies found for the compagnyId ${req.params.id} does not exist in DB`);
+        .send(`no agencies found for the compagnyId ${req.params.id} in DB`);
     }
   });
 });
