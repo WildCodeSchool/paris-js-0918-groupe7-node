@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 router.get('/isactive', (req, res) => {
 	models.agencies.findAll({
 		where : {
-			is_active : 1
+			is_active : true
 		}
 	})
 	.then(data => {
