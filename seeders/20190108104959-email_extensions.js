@@ -482,6 +482,16 @@ module.exports = {
         createdAt : '2019-01-09 10:00:00',
         updatedAt : '2019-01-09 10:00:00',
         companyId: 13
+      },{
+        email_extension: '@exton.com',
+        createdAt : '2019-01-09 10:00:00',
+        updatedAt : '2019-01-09 10:00:00',
+        companyId: 102
+      },{
+        email_extension: '@gmail.com',
+        createdAt : '2019-01-09 10:00:00',
+        updatedAt : '2019-01-09 10:00:00',
+        companyId: 103
       },], {});
   },
 

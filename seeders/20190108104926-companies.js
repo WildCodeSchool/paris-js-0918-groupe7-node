@@ -511,6 +511,16 @@ module.exports = {
         is_active: 1,
         createdAt : '2019-01-21 10:00:00',
         updatedAt : '2019-01-21 10:00:00',
+      },{
+        name: 'Exton',
+        is_active: 0,
+        createdAt : '2019-01-21 10:00:00',
+        updatedAt : '2019-01-21 10:00:00',
+      },{
+        name: 'WildCodeSchool',
+        is_active: 0,
+        createdAt : '2019-01-21 10:00:00',
+        updatedAt : '2019-01-21 10:00:00',
       },], {});
   },
 
