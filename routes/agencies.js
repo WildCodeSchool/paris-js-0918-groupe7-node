@@ -72,6 +72,19 @@ router.get("/companyId/:id(\\d+)", (req, res) => {
     });
 });
 
+router.get("/companyId/:id(\\d+)/is_active", (req, res) => {
+  models.agencies
+    .findAll({
+      where: {
+        companyId: req.params.id,
+        is_active: 1
+      }
+    })
+    .then(data => {
+      res.status(200).json(data);
+    });
+});
+
 router.post("/", (req, res) => {
   const data = req.body;
   const newAgency = new models.agencies(data);

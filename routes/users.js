@@ -11,6 +11,20 @@ router.get('/', (req, res) => {
 	});
 });
 
+router.get('/companyUsers=:companyName', (req, res) => {
+	models.users.findAll({
+		attributes: ["email", "role", "id"],
+		where: { is_active: 1 },
+		include: [{
+			model: models.companies,
+			where: { name: req.params.companyName }
+		}] 
+	})
+	.then(data => {
+		res.status(200).json(data)
+	});
+});
+
 router.get('/surveyById', (req, res) => {
 	const headerAuth = req.headers['authorization'];
 	const userId = jwtUtils.getUserId(headerAuth) ;
@@ -30,7 +44,7 @@ router.get('/surveyById', (req, res) => {
 						include : [{
 							model : models.answers_possibilities,
 							include : [{
-								model : models.answers_type
+								model : models.answers_type,
 							}]
 						}]
 					}]
@@ -39,6 +53,8 @@ router.get('/surveyById', (req, res) => {
 		}]
 	})
 	.then(data => {
+		const used = process.memoryUsage().heapUsed / 1024 / 1024;
+		// console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
 		res.status(200).json(data)
 	})
 })
