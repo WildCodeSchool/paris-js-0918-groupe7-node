@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 
 router.get('/companyUsers=:companyName', (req, res) => {
 	models.users.findAll({
-		attributes: ["email", "role"],
+		attributes: ["email", "role", "id"],
 		where: { is_active: 1 },
 		include: [{
 			model: models.companies,
