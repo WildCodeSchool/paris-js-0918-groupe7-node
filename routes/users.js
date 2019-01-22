@@ -44,7 +44,7 @@ router.get('/surveyById', (req, res) => {
 						include : [{
 							model : models.answers_possibilities,
 							include : [{
-								model : models.answers_type
+								model : models.answers_type,
 							}]
 						}]
 					}]
@@ -53,6 +53,8 @@ router.get('/surveyById', (req, res) => {
 		}]
 	})
 	.then(data => {
+		const used = process.memoryUsage().heapUsed / 1024 / 1024;
+		// console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
 		res.status(200).json(data)
 	})
 })

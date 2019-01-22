@@ -54,5 +54,9 @@ app.use('/users_answers_possibilities_questions', routerUsersAnswersPossibilitie
 
 
 models.sequelize.sync().then(() => {
+    setInterval(() => {
+      const used = process.memoryUsage().heapUsed / 1024 / 1024;
+      console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
+    },5000)
   app.listen(process.env.PORT || 3002);
 });
