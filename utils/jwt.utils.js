@@ -44,14 +44,16 @@ module.exports = {
     getUserRole: authorization => {
         let userRole = null;
         let token = module.exports.parseAuthorization(authorization);
-
-        if(token != null) {
+        
+        if(token !== "null") {
             let jwtToken = jwt.verify(token, JWT_SIGN_SECRET)
 
-            if(jwtToken != null)
+            if(jwtToken !== null)
                 userRole = jwtToken.role;
+            
         }
-        return userRole;
+        let hasRole = userRole === "client" || userRole === "admin" || userRole === "super_admin"
+        return hasRole ? userRole : "visitor";
     },
 
     getUserId: authorization => {
