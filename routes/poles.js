@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const models = require("../models");
-const userCtrl = require('./log.js');
+const secure = require('../utils/jwt.utils');
+
+// pour sécuriser les routes: ajouter la fonction en middleware
+// secure.requireRole("client")
+
 
 router.get('/', (req, res) => {
 	models.poles.findAll().then(data => {

@@ -44,7 +44,6 @@ module.exports = {
     getUserRole: authorization => {
         let userRole = null;
         let token = module.exports.parseAuthorization(authorization);
-        
         if(token !== "null") {
             let jwtToken = jwt.verify(token, JWT_SIGN_SECRET)
 
@@ -81,5 +80,26 @@ module.exports = {
                 registerData = jwtToken;
         }
         return registerData;
-    }
+    },
+
+    requireRole: role => {
+        return (req, res, next) => {
+        console.log("checking role...")
+          const headerAuth = req.headers['authorization'];
+          const userRole = module.exports.getUserRole(headerAuth);
+
+          console.log("mu", userRole)
+          const roles = ["visitor","client","admin","super_admin"];
+    
+          const userRoleId = roles.indexOf(userRole);
+          const roleMinId = roles.indexOf(role);
+    
+          if (userRoleId >= roleMinId) {
+            console.log("Role authorized")
+            next();
+          } else {
+            res.send(403);
+          }
+        }
+      }
 }
