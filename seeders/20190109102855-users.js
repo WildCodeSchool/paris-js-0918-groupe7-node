@@ -98,8 +98,7 @@ module.exports = {
         business_focus: 'Specialized Financial Services',
         createdAt: '2019-01-09 10:00:00',
         updatedAt: '2019-01-09 10:00:00',
-        agencyId: 13,
-        companyId: 14,
+        companyId: 102,
         poleId: 1,
       },{
         email: 'admin1@exton.com',
@@ -112,8 +111,7 @@ module.exports = {
         business_focus: 'Specialized Financial Services',
         createdAt: '2019-01-09 10:00:00',
         updatedAt: '2019-01-09 10:00:00',
-        agencyId: 13,
-        companyId: 14,
+        companyId: 102,
         poleId: 1,
       },], {});
   },
