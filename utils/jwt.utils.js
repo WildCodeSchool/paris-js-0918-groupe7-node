@@ -84,22 +84,22 @@ module.exports = {
 
     requireRole: role => {
         return (req, res, next) => {
-        console.log("checking role...")
-          const headerAuth = req.headers['authorization'];
-          const userRole = module.exports.getUserRole(headerAuth);
+            const userRole = "visitor"; 
+            const roles = ["visitor","client","admin","super_admin"];
+            
+            if(req.headers['authorization'] !== undefined) {
+                const headerAuth = req.headers['authorization'];
+                userRole = module.exports.getUserRole(headerAuth);
+            }
 
-          console.log("mu", userRole)
-          const roles = ["visitor","client","admin","super_admin"];
-    
-          const userRoleId = roles.indexOf(userRole);
-          const roleMinId = roles.indexOf(role);
-    
-          if (userRoleId >= roleMinId) {
-            console.log("Role authorized")
-            next();
-          } else {
-            res.send(403);
-          }
+            const userRoleId = roles.indexOf(userRole);
+            const roleMinId = roles.indexOf(role);
+        
+            if (userRoleId >= roleMinId) {
+                next();
+            } else {
+                res.send(403);
+            }
         }
-      }
+    }
 }
